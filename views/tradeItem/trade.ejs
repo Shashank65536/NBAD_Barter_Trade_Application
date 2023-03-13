@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>LensTrade</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+    <!--
+        <section id="main-img">
+        </section>
+
+        -->
+    <header>
+        <img class="logo" src="/images/sunglasses.png" alt="logo">
+        <p id="trade-name">NINER Eye+
+        <p>
+            <!-- <p>For a clearer view of life !</p> -->
+        <nav>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Signup</a></li>
+                </ul>
+            </div>
+
+        </nav>
+    </header><br>
+
+    <div class="general-nav">
+
+        <div class="general-nav-links">
+            <ul>
+                <li id="general-nav-font"><a href="index.html">Home</a></li>
+                <li><a href="http://localhost:3000/trades/tradeCategories">Trades</a></li>
+                <li><a href="newTrade.html">Start Trading</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- <div class="trade-container">
+
+        <img src="images/gg.jpeg">
+        <h2>Round Glasses </h2>
+        <input type="submit" value="Start Trading">
+        <a href="newTrade.html" class="">Start Trading</a>
+    </div> -->
+
+
+    <div id = "card-container">
+        <%if(items.length){%>
+            <%items.forEach((item)=>{%>
+                <%console.log(item);%>
+                <%})
+                }%>
+
+
+        <!-- <div class="card">
+            <img id = "card-image" src="/images/sunglasses3.png" alt="logo">
+            <h1>Vincent Chase</h1>
+            <p class="price">$20.99</p>
+            <p>Elegant sunglasse with UV filter</p>
+            <p><button>Start Trading</button></p>
+        </div>
+        <div class="card">
+            <img id = "card-image" src="/images/sunglasses1.png" alt="logo">
+            <h1>Polaroid Glasses</h1>
+            <p class="price">$15.99</p>
+            <p>Designed to protect the eyes from harmful UV rays </p>
+            <p><button>Start Trading</button></p>
+        </div>
+        <div class="card">
+            <img id = "card-image" src="/images/sunglasses2.png" alt="logo">
+            <h1>Classic Ray Ban</h1>
+            <p class="price">$10.99</p>
+            <p>Polarized Sunglasses: Lenses with a special filter to reduce glare..</p>
+            <p><button>Start Trading</button></p>
+        </div> -->
+   </div>
+
+
+
+    <footer>
+        <ul id="footer">
+            <li>
+                <a href="#">Niner Lens+</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+        <img class="whatsapp-image" src="images/whatsapp.png" title="whatsapp-image" class="center">
+        <img class="twitter-image" src="images/twitter.png" title="twitter-image" class="center">
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 const {DateTime} = require("luxon");
-const {v4: uuidv4} = require('uuid');
+// const {v4: uuidv4} = require('uuid');
 
 const tradeItems = [
     {
@@ -50,5 +50,11 @@ const tradeItems = [
 ];
 
 exports.getAllTradeItems = ()=>{
+    console.log("I am in models js file");
     return tradeItems;
-}
+};
+
+exports.getItemByCategoryId = (id) =>{
+    console.log("In models id is = ",id);
+    return tradeItems.find(item => item.category_id === id);
+};

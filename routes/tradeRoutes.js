@@ -11,6 +11,10 @@ router.get('/new', (req,res) =>{
 
 router.get('/tradeCategories', controller.tradeCategories);
 
+router.get('/tradeCategories/all', controller.showAllItems);
+
+router.get('/tradeCategories/:category_id', controller.displayCategoryItems);
+
 router.get('/:id',(req,res) =>{
     res.send('Send the item with the id');
 });

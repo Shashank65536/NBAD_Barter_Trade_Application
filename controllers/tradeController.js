@@ -1,11 +1,25 @@
-// const express = require('express');
-// const tradeItemModel = require('../models/tradeItem');
+const express = require('express');
+const tradeItemModel = require('../models/items');
 
 exports.tradeCategories = (req, res) =>{
     // res.send ('Display all the stories.');
     res.render('./tradeItem/trades');
 };
 
+exports.showAllItems = (req,res) =>{
+    let items = tradeItemModel.getAllTradeItems;
+    console.log("all items are ", items.length);
+    res.render('./tradeItem/trade',{items});
+};
+
+exports.displayCategoryItems = (req,res)=>{
+    let id = req.params.category_id;
+    console.log('id is = ',id);
+    let items = tradeItemModel.getItemByCategoryId;
+    console.log('items is in displayCategoryItems =',items.name);
+    res.render('./tradeItem/trade',{items});
+
+};
 // exports.new  = (req, res) => {
 //     res.render('./story/new');
 // };
