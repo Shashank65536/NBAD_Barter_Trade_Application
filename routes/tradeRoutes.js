@@ -2,16 +2,14 @@ const express = require('express');
 
 const router = express.Router();
 
-// const controller = require('../controllers/tradeController');
+const controller = require('../controllers/tradeController');
 
 
 router.get('/new', (req,res) =>{
     res.send('Send a new form');
 });
 
-router.post('/', (req,res) =>{
-    res.send('List all the trade items');
-});
+router.get('/tradeCategories', controller.tradeCategories);
 
 router.get('/:id',(req,res) =>{
     res.send('Send the item with the id');

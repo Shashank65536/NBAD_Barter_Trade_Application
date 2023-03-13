@@ -1,14 +1,9 @@
-const express = require('express');
-const model = require('../models/story');
+// const express = require('express');
+// const tradeItemModel = require('../models/tradeItem');
 
-exports.index = (req, res) =>{
+exports.tradeCategories = (req, res) =>{
     // res.send ('Display all the stories.');
-    let stories = model.find();
-    // console.log(stories);
-    stories.forEach((obj) => {
-        console.log(obj.title);
-      });
-    res.render('./story/index',{stories});
+    res.render('./tradeItem/trades');
 };
 
 // exports.new  = (req, res) => {
