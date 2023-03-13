@@ -43,21 +43,25 @@
     </div>
 
     <div class="trades-container">
-        <h2><a href="http://localhost:3000/trades/tradeCategories/all">Display all Frames and Lenses</a></h2><br>
+        <h2><a href="http://localhost:3000/trades/allItems">Display all Frames and Lenses</a></h2><br>
         <h2>OR</h2><br>
 
-        if()
         <ul>
             <li>
                 <h2>Types of Frames</h2><br>
                 <ul>
-                    <li><a href="">Round</a></li>
-                    <li><a href="trade.html">Square</a></li>
-                    <li><a href="trade.html">Oval</a></li>
-                    <li><a href="trade.html">Aviator</a></li>
-                    <li><a href="trade.html">Cat-eye</a></li>
+                    <% if (categories) {
+                        console.log("in trades ejs categories are = ",categories);
+                        for(var i = 0; i<categories.length;i++){
+                            console.log("in categories = ",categories[i].category);%>
+                            <li><a href="http://localhost:3000/trades/tradeCategories/<%= categories[i].category_id%>" > <%= categories[i].category%>  </a></li>
+                  
+                        <%}
+                    } %>
+
                 </ul>
             </li>
+            
             <br>
             <li>
                 <h2>Types of Lenses</h2> <br>

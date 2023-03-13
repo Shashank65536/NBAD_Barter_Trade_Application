@@ -1,4 +1,5 @@
 const {DateTime} = require("luxon");
+const { all } = require("../routes/tradeRoutes");
 // const {v4: uuidv4} = require('uuid');
 
 const tradeItems = [
@@ -41,7 +42,7 @@ const tradeItems = [
         category_id:'4',
         name:'RayBan',
         category: 'Cat Eye',
-        details: 'Author 1',
+        details: 'Author 1dsssssssssssss',
         status:'New',
         price: '20',
         image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjPx_dTaxadOIn3QEIltzdm6LE7chEfxcElQ&usqp=CAU',
@@ -49,8 +50,8 @@ const tradeItems = [
     }
 ];
 
-exports.getAllTradeItems = ()=>{
-    console.log("I am in models js file");
+
+exports.getAllItems = () => {
     return tradeItems;
 };
 
@@ -58,3 +59,30 @@ exports.getItemByCategoryId = (id) =>{
     console.log("In models id is = ",id);
     return tradeItems.find(item => item.category_id === id);
 };
+
+exports.getAllCategories = () =>{
+
+    return getCategoryDict();
+}
+
+getCategoryDict =  ()=>{
+    categoryInfo = [];
+    var i = 0;
+    tradeItems.forEach(item =>{
+        tempCategory = {};
+        tempCategory["category"] = item.category;
+        tempCategory["category_id"] = item.category_id;
+        categoryInfo.push(tempCategory);
+        i++;
+    });
+    console.log(categoryInfo);
+    console.log(categoryInfo.length);
+    return categoryInfo;
+}
+
+exports.getItemDetailsByItemId = (id) =>{
+    console.log("In models id is = ",id);
+    return tradeItems.find(item => item.id === id);
+};
+
+// getCategoryDict();

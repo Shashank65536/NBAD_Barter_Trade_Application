@@ -1,13 +1,16 @@
 const express = require('express');
-const tradeItemModel = require('../models/items');
+const tradeItemModel = require('../models/itemModel.js');
 
 exports.tradeCategories = (req, res) =>{
     // res.send ('Display all the stories.');
-    res.render('./tradeItem/trades');
+    let categories = tradeItemModel.getAllCategories();
+    console.log("in controller = ",categories);
+    res.render('./tradeItem/trades',{categories});
 };
 
 exports.showAllItems = (req,res) =>{
-    let items = tradeItemModel.getAllTradeItems;
+    
+    let items = tradeItemModel.getAllItems();
     console.log("all items are ", items.length);
     res.render('./tradeItem/trade',{items});
 };
@@ -15,11 +18,21 @@ exports.showAllItems = (req,res) =>{
 exports.displayCategoryItems = (req,res)=>{
     let id = req.params.category_id;
     console.log('id is = ',id);
-    let items = tradeItemModel.getItemByCategoryId;
-    console.log('items is in displayCategoryItems =',items.name);
+    let items = tradeItemModel.getItemByCategoryId(id);
+    console.log('items is in displayCategoryItems =',items);
     res.render('./tradeItem/trade',{items});
 
 };
+
+exports.getItemDetails = (itemId) => {
+    let item = tradeItemModel.getItemDetailsByItemId(itemId);
+    if(item){
+        res.render('./tradeItem/executeTrade',{item});
+    }else{
+        console.log("Error item not found");
+    }
+}
+
 // exports.new  = (req, res) => {
 //     res.render('./story/new');
 // };

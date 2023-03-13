@@ -51,11 +51,30 @@
 
 
     <div id = "card-container">
-        <%if(items.length){%>
-            <%items.forEach((item)=>{%>
-                <%console.log(item);%>
-                <%})
-                }%>
+        <%console.log("In ejs template = ",items.details);%>
+        <%if(items.length > 1){
+            console.log("In ejs template = ",items.length);
+            for (var i = 0; i < items.length; i++) {%>
+                <div class = "card">
+                    <img id = "card-image" src = "<%= items[i].image %>" alt = "logo">
+                    <h1><%= items.name%></h1>
+                    <p class="price">$<%= items[i].price%></p>
+                    <p><%= items[i].details %></p>
+                    <p><button>Start Trading</button></p>
+                </div>
+
+             <%} 
+        }else{%>
+            <div class = "card">
+                <img id = "card-image" src = "<%= items.image %>" alt = "logo">
+                <h1><%= items.name%></h1>
+                <p class="price">$<%= items.price%></p>
+                <p><%= items.details %></p>
+                <p><button>Start Trading</button></p>
+            </div>
+        <%}%>
+
+    </div>
 
 
         <!-- <div class="card">
