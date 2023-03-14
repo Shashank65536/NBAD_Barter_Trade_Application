@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href=
+"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
+    </script>
+    <script src=
+"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
+    </script>
+    <title>LensTrade</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+    <!--
+        <section id="main-img">
+        </section>
+
+        -->
+    <header>
+        <img class="logo" src="/images/sunglasses.png" alt="logo">
+        <p id="trade-name">NINER Eye+
+        <p>
+            <!-- <p>For a clearer view of life !</p> -->
+        <nav>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Signup</a></li>
+                </ul>
+            </div>
+
+        </nav>
+    </header><br>
+
+    <div class="general-nav">
+
+        <div class="general-nav-links">
+            <ul>
+                <li id="general-nav-font"><a href="index.html">Home</a></li>
+                <li><a href="trades.html">Trades</a></li>
+                <li><a href="newTrade.html">Add a new trade</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="container" style="color:rgb(52, 163, 52)">
+        <h1 >Create Item</h1>
+    </div>
+    <div class="container">
+        <form method="POST" action="/trades" class="form-horizontal">
+            <div class="form-group has-success">
+                <label class="control-label col-sm-2" for="glastp">Name</label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" id="name" name="name" placeholder="name">
+                </div>
+            </div>
+
+            <div class="form-group has-success">
+                <label class="control-label col-sm-2" for="cataid">Category</label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" id="category" name="category" placeholder="category">
+                </div>
+            </div>
+
+            <div class="form-group has-success">
+                <label class="control-label col-sm-2" for="cataid">Details</label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" id="details" name="details" placeholder="details">
+                </div>
+            </div>
+
+            <div class="form-group has-success">
+                <label class="control-label col-sm-2" for="cataid">Price</label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" id="price" name="price" placeholder="price">
+                </div>
+            </div>
+
+            <div class="container text-center">
+                <button type="submit" class="btn btn-success">
+                    Create
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+    <footer>
+        <ul id="footer">
+            <li>
+                <a href="#">Niner Lens+</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+        <img class="whatsapp-image" src="/images/whatsapp.png" title="whatsapp-image" class="center">
+        <img class="twitter-image" src="/images/twitter.png" title="twitter-image" class="center">
+    </footer>
+
+
+</body>
+
+</html>
