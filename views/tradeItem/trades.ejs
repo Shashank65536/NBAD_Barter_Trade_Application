@@ -1,46 +1,5 @@
-<!DOCTYPE html>
+<%- include('../partials/header.ejs')%>
 
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LensTrade</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-</head>
-
-<body>
-    <!--
-        <section id="main-img">
-        </section>
-
-        -->
-    <header>
-        <img class="logo" src="/images/sunglasses.png" alt="logo">
-        <p id="trade-name">NINER Eye+
-        <p>
-            <!-- <p>For a clearer view of life !</p> -->
-        <nav>
-            <div class="nav-links">
-                <ul>
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Signup</a></li>
-                </ul>
-            </div>
-
-        </nav>
-    </header><br>
-
-    <div class="general-nav">
-
-        <div class="general-nav-links">
-            <ul>
-                <li id="general-nav-font"><a href="index.html">Home</a></li>
-                <li><a href="http://localhost:3000/trades/tradeCategories">Trades</a></li>
-                <li><a href="http://localhost:3000/trades/createForm">Add a new trade</a></li>
-            </ul>
-        </div>
-    </div>
 
     <div class="trades-container">
         <h2><a href="http://localhost:3000/trades/allItems">Display all Frames and Lenses</a></h2><br>
@@ -76,24 +35,4 @@
     </div>
 
 
-
-    <footer>
-        <ul id="footer">
-            <li>
-                <a href="#">Niner Lens+</a>
-            </li>
-            <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#">Contact</a>
-            </li>
-        </ul>
-        <img class="whatsapp-image" src="/images/whatsapp.png" title="whatsapp-image" class="center">
-        <img class="twitter-image" src="/images/twitter.png" title="twitter-image" class="center">
-    </footer>
-
-
-</body>
-
-</html>
+<%- include('../partials/footer.ejs')%>

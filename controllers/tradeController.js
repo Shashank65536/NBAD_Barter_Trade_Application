@@ -121,7 +121,6 @@ exports.save = (req,res,next) => {
 
     let body = req.body;
     console.log(body);
-    tradeItemModel.save(body);
     if(tradeItemModel.save(body)){
         res.redirect('/trades/allItems');
     }else{

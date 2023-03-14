@@ -6,10 +6,10 @@ exports.homePage = (req,res)=>{
 };
 
 exports.aboutPage = (req,res)=>{
-    res.send('This will navigate to the about page')
+    res.render('./tradeItem/about');
 };
 
 exports.contactPage = (req,res)=>{
-    res.send('This will navigate to the contact page')
+    res.render('./tradeItem/contact');
 };
 
