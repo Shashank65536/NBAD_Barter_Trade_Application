@@ -50,54 +50,45 @@
     </div> -->
 
 
-    <div id = "card-container">
-        <%console.log("In ejs template = ",items.details);%>
-        <%if(items.length > 1){
-            console.log("In ejs template = ",items.length);
-            for (var i = 0; i < items.length; i++) {%>
-                <div class = "card">
-                    <img id = "card-image" src = "<%= items[i].image %>" alt = "logo">
-                    <h1><%= items.name%></h1>
-                    <p class="price">$<%= items[i].price%></p>
-                    <p><%= items[i].details %></p>
-                    <p><button>Start Trading</button></p>
-                </div>
-
-             <%} 
-        }else{%>
+    <div class = "exec-container">
+        <%console.log("In ejs template = ",item.details);%>
+        <%if(item){
+            console.log("In ejs template = ",item);%>
             <div class = "card">
-                <img id = "card-image" src = "<%= items.image %>" alt = "logo">
-                <h1><%= items.name%></h1>
-                <p class="price">$<%= items.price%></p>
-                <p><%= items.details %></p>
-                <p><button>Start Trading</button></p>
+                <img id = "card-image" src = "<%= item.image %>" alt = "logo">
+                <h1><%= item.name%></h1>
+                <p class="price">$<%= item.price%></p>
+                <p><%= item.details %></p>
             </div>
-        <%}%>
+            <form>
+                <p>
+                    <button class = "exec-button-update" 
+                        type = "submit" 
+                        formmethod="POST" 
+                        formaction="/trades/<%=item.id%>/edit">
+                        Update
+                    </button>
+                </p>
+                <p>
+                    <button class = "exec-button-delete" 
+                        type = "submit" 
+                        formmethod="POST" 
+                        formaction="/trades/<%=item.id%>?_method=DELETE">
+                        Delete
+                    </button>
+                </p>
+            </form>
 
+        <%}else{
+            console.log("In ejs template, there is no item");
+        }%>
     </div>
 
 
-        <!-- <div class="card">
-            <img id = "card-image" src="/images/sunglasses3.png" alt="logo">
-            <h1>Vincent Chase</h1>
-            <p class="price">$20.99</p>
-            <p>Elegant sunglasse with UV filter</p>
-            <p><button>Start Trading</button></p>
-        </div>
-        <div class="card">
-            <img id = "card-image" src="/images/sunglasses1.png" alt="logo">
-            <h1>Polaroid Glasses</h1>
-            <p class="price">$15.99</p>
-            <p>Designed to protect the eyes from harmful UV rays </p>
-            <p><button>Start Trading</button></p>
-        </div>
-        <div class="card">
-            <img id = "card-image" src="/images/sunglasses2.png" alt="logo">
-            <h1>Classic Ray Ban</h1>
-            <p class="price">$10.99</p>
-            <p>Polarized Sunglasses: Lenses with a special filter to reduce glare..</p>
-            <p><button>Start Trading</button></p>
-        </div> -->
+    
+
+
+   
    </div>
 
 
@@ -114,8 +105,8 @@
                 <a href="#">Contact</a>
             </li>
         </ul>
-        <img class="whatsapp-image" src="images/whatsapp.png" title="whatsapp-image" class="center">
-        <img class="twitter-image" src="images/twitter.png" title="twitter-image" class="center">
+        <img class="whatsapp-image" src="/images/whatsapp.png" title="whatsapp-image" class="center">
+        <img class="twitter-image" src="/images/twitter.png" title="twitter-image" class="center">
     </footer>
 
 

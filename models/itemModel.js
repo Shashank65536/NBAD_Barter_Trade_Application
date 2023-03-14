@@ -56,8 +56,11 @@ exports.getAllItems = () => {
 };
 
 exports.getItemByCategoryId = (id) =>{
+    let itemArr = [];
     console.log("In models id is = ",id);
-    return tradeItems.find(item => item.category_id === id);
+    reqItem = tradeItems.find(item => item.category_id === id);
+    itemArr.push(reqItem);
+    return itemArr;
 };
 
 exports.getAllCategories = () =>{
@@ -85,4 +88,12 @@ exports.getItemDetailsByItemId = (id) =>{
     return tradeItems.find(item => item.id === id);
 };
 
-// getCategoryDict();
+exports.deleteById = (id) =>{
+    let index = tradeItems.findIndex(item => item.id === id);
+    if(index != -1 ){
+        tradeItems.splice(index,1);
+        return true;
+    }else{
+        return false;
+    }
+}

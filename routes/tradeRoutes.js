@@ -21,16 +21,12 @@ router.get('/:id',(req,res) =>{
     res.send('Send the item with the id');
 });
 
-router.get('/:id/edit', (req,res) =>{
-    res.send('Send a edit form');
-});
+router.get('/:id/edit', controller.edit);
 
-router.put('/:id', (req,res) =>{
+router.put('/:id', (req,res,next) =>{
     res.send('Update the story');
 });
 
-router.delete('/:id', (req,res) =>{
-    res.send('Delete the story');
-});
+router.delete('/:id', controller.deleteItem);
 
 module.exports = router;

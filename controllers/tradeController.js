@@ -8,30 +8,72 @@ exports.tradeCategories = (req, res) =>{
     res.render('./tradeItem/trades',{categories});
 };
 
-exports.showAllItems = (req,res) =>{
+exports.showAllItems = (req,res,next) =>{
     
     let items = tradeItemModel.getAllItems();
-    console.log("all items are ", items.length);
-    res.render('./tradeItem/trade',{items});
+    console.log("all items are ", items);
+    console.log(items instanceof Array);
+    if(items.length > 0){
+        res.render('./tradeItem/trade',{items});
+    }else{
+        let err = new Error('Trade items are empty!!!!!!!!!!!!!!');
+        err.status = 404;
+        next(err);
+    }
+    
 };
 
 exports.displayCategoryItems = (req,res)=>{
     let id = req.params.category_id;
     console.log('id is = ',id);
-    let items = tradeItemModel.getItemByCategoryId(id);
-    console.log('items is in displayCategoryItems =',items);
-    res.render('./tradeItem/trade',{items});
+    let itemsArr = tradeItemModel.getItemByCategoryId(id);
+    if(itemsArr){
+        console.log('items is in displayCategoryItems =',itemsArr);
+        res.render('./tradeItem/trade',{itemsArr});
+    }
+
 
 };
 
-exports.getItemDetails = (itemId) => {
-    let item = tradeItemModel.getItemDetailsByItemId(itemId);
+exports.getItemDetails = (req,res) => {
+    let id = req.params.itemId;
+    //  console.log("id is ",id);
+    let item = tradeItemModel.getItemDetailsByItemId(id);
+    // console.log("the trade item is ", item);
     if(item){
         res.render('./tradeItem/executeTrade',{item});
     }else{
         console.log("Error item not found");
     }
 }
+
+exports.deleteItem = ((req,res,next) =>{
+    let id = req.params.id;
+    // res.send('Delete the story');
+    if (tradeItemModel.deleteById(id)){
+        res.redirect('/trades/allItems');
+    }else{
+        // let err = new Error('Cannot find a story with id  ' + id);
+        // err.status = 404;
+        // next(err);
+        console.log("Error during deleting the item");
+    }
+
+})
+
+exports.edit = (req, res, next) =>{
+    // res.send ('Send edit form .');
+    let id = req.params.id;
+    let eachItem = tradeItemModel.getItemDetailsByItemId(id);
+    if (eachItem){
+        res.render('./tradeItem/updateForm',{eachItem})
+    }else{
+        let err = new Error('Cannot find a item with id  ' + id);
+        err.status = 404;
+        next(err);
+    }
+    
+};
 
 // exports.new  = (req, res) => {
 //     res.render('./story/new');
