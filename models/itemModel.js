@@ -1,6 +1,6 @@
 const {DateTime} = require("luxon");
 const { all } = require("../routes/tradeRoutes");
-// const {v4: uuidv4} = require('uuid');
+const {v4: uuidv4} = require('uuid');
 
 const tradeItems = [
     {
@@ -107,9 +107,27 @@ exports.updateById = (id, newItem) => {
         item.category = newItem.category;
         item.details = newItem.details;
         item.price = newItem.price;
-        
         return true;
     }else{
         return false;
     }
 };
+
+exports.save = (item) => {
+    
+    let uuid = uuidv4();
+    let uuid1 = uuidv4();
+    console.log("in models save ");
+    item["id"] = uuid;
+    item["createdAt"] =  DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
+    item["category_id"] =uuid1;
+    item["status"] = "active";
+    item["image"] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7Q8BQHDT8SWf_uR3v_lcoVmY8Yu9DgO33w&usqp=CAU";
+    console.log("item to be pushed",item);
+    if(tradeItems.push(item)){
+        return true;
+    }else{
+        return false;
+    }
+    
+}
