@@ -37,7 +37,7 @@ app.use((req, res, next) =>{
 
 app.use((err,req,res, next) => {
 
-    console.log("I am in the error ka app.use");
+    console.log("I am in the error app.use");
     // console.log(err.stack);
     if(!err.status){
         err.status = 500;

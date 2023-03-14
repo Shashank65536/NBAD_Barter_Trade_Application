@@ -15,7 +15,7 @@
 "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
     </script>
     <title>LensTrade</title>
-    <link rel="stylesheet" type="text/css" href="CSS/styles.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
@@ -25,7 +25,7 @@
 
         -->
     <header>
-        <img class="logo" src="images/sunglasses.png" alt="logo">
+        <img class="logo" src="/images/sunglasses.png" alt="logo">
         <p id="trade-name">NINER Eye+
         <p>
             <!-- <p>For a clearer view of life !</p> -->
@@ -52,27 +52,42 @@
     </div>
 
     <div class="container" style="color:rgb(52, 163, 52)">
-        <h1 >Start Trading</h1>
+        <h1 >Update Trading Info</h1>
     </div>
+    <% console.log("In updateFormEjs the item is = ",eachItem) %>
     <div class="container">
-        <form action="#" class="form-horizontal">
+        <form method="POST" action="/trades/<%= eachItem.id%>?_method=PUT" class="form-horizontal">
             <div class="form-group has-success">
-                <label class="control-label col-sm-2" for="glastp">Glasses Type</label>
+                <label class="control-label col-sm-2" for="glastp">Name</label>
                 <div class="col-sm-5">
-                    <input class="form-control" type="text" id="glastp" placeholder="Enter your the Glasses Type">
+                    <input class="form-control" type="text" id="name" name="name" value = "<%= eachItem.name %>">
                 </div>
             </div>
 
             <div class="form-group has-success">
-                <label class="control-label col-sm-2" for="cataid">Enter Catalog Id</label>
+                <label class="control-label col-sm-2" for="cataid">Category</label>
                 <div class="col-sm-5">
-                    <input class="form-control" type="text" id="cataid" placeholder="Enter your glasses catalog ID">
+                    <input class="form-control" type="text" id="category" name="category" value = "<%= eachItem.category %>">
+                </div>
+            </div>
+
+            <div class="form-group has-success">
+                <label class="control-label col-sm-2" for="cataid">Details</label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" id="details" name="details" value = "<%= eachItem.details %>">
+                </div>
+            </div>
+
+            <div class="form-group has-success">
+                <label class="control-label col-sm-2" for="cataid">Price</label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" id="price" name="price" value = "<%= eachItem.name %>">
                 </div>
             </div>
 
             <div class="container text-center">
-                <button type="button" class="btn btn-success">
-                    Start Trading
+                <button type="submit" class="btn btn-success">
+                    Update
                 </button>
             </div>
         </form>
@@ -91,8 +106,8 @@
                 <a href="#">Contact</a>
             </li>
         </ul>
-        <img class="whatsapp-image" src="images/whatsapp.png" title="whatsapp-image" class="center">
-        <img class="twitter-image" src="images/twitter.png" title="twitter-image" class="center">
+        <img class="whatsapp-image" src="/images/whatsapp.png" title="whatsapp-image" class="center">
+        <img class="twitter-image" src="/images/twitter.png" title="twitter-image" class="center">
     </footer>
 
 

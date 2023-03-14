@@ -23,17 +23,36 @@ exports.showAllItems = (req,res,next) =>{
     
 };
 
-exports.displayCategoryItems = (req,res)=>{
+exports.displayCategoryItems = (req,res,next) =>{
+    
     let id = req.params.category_id;
-    console.log('id is = ',id);
-    let itemsArr = tradeItemModel.getItemByCategoryId(id);
-    if(itemsArr){
-        console.log('items is in displayCategoryItems =',itemsArr);
-        res.render('./tradeItem/trade',{itemsArr});
+    console.log("In displayCategoryItems id is", id);
+    let items = tradeItemModel.getItemByCategoryId(id);
+    // console.log("all items are ", items);
+    // console.log(items instanceof Array);
+    if(items.length > 0){
+        res.render('./tradeItem/trade',{items});
+    }else{
+        let err = new Error('Trade items are empty!!!!!!!!!!!!!!');
+        err.status = 404;
+        next(err);
     }
-
-
+    
 };
+
+// exports.displayCategoryItems = (req,res)=>{
+//     let id = req.params.category_id;
+//     console.log('id is = ',id);
+//     let itemsArr = tradeItemModel.getAllItems();
+//     // console.log("Item found by category is:",itemsArr);
+//     if(itemsArr.length > 0){
+//         console.log('items is in displayCategoryItems =',itemsArr);
+//         // res.render('./tradeItem/trade',{itemsArr});
+//         res.render('./tradeItem/trade',{itemsArr});
+//     }
+
+
+// };
 
 exports.getItemDetails = (req,res) => {
     let id = req.params.itemId;
@@ -73,6 +92,33 @@ exports.edit = (req, res, next) =>{
         next(err);
     }
     
+};
+
+exports.update =  (req, res, next) =>{
+    // res.send ('update the story with id'); 
+    console.log("I am in the update function");
+    let item = req.body;
+    console.log(item);
+    console.log(req.params.id);
+
+    if(tradeItemModel.updateById(req.params.id,item)){
+        res.redirect('/trades/allItems');
+    }else{
+        let err = new Error('Cannot find a story with id  ' + id);
+        err.status = 404;
+        next(err);
+    }
+
+
+    // let id = req.params.id;
+
+    // if(model.updateById(id,story)){
+    //     res.redirect('/stories/' + id);
+    // }else{
+    //     let err = new Error('Cannot find a story with id  ' + id);
+    //     err.status = 404;
+    //     next(err);
+    // }
 };
 
 // exports.new  = (req, res) => {

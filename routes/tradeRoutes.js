@@ -23,9 +23,7 @@ router.get('/:id',(req,res) =>{
 
 router.get('/:id/edit', controller.edit);
 
-router.put('/:id', (req,res,next) =>{
-    res.send('Update the story');
-});
+router.put('/:id', controller.update);
 
 router.delete('/:id', controller.deleteItem);
 

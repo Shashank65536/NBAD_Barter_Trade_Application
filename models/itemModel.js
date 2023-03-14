@@ -60,6 +60,7 @@ exports.getItemByCategoryId = (id) =>{
     console.log("In models id is = ",id);
     reqItem = tradeItems.find(item => item.category_id === id);
     itemArr.push(reqItem);
+    console.log("In getItemByCategoryId ",itemArr);
     return itemArr;
 };
 
@@ -97,3 +98,18 @@ exports.deleteById = (id) =>{
         return false;
     }
 }
+
+exports.updateById = (id, newItem) => {
+    let item = tradeItems.find(eachItem => eachItem.id === id);
+
+    if(item){
+        item.name = newItem.name;
+        item.category = newItem.category;
+        item.details = newItem.details;
+        item.price = newItem.price;
+        
+        return true;
+    }else{
+        return false;
+    }
+};
