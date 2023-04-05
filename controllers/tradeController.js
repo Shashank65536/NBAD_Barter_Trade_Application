@@ -1,5 +1,7 @@
 const express = require('express');
 const tradeItemModel = require('../models/itemModel.js');
+const {v4: uuidv4} = require('uuid');
+const {DateTime} = require("luxon");
 
 exports.tradeCategories = (req, res) =>{
     // res.send ('Display all the stories.');
@@ -96,45 +98,86 @@ exports.getItemDetails = (req,res) => {
 exports.deleteItem = ((req,res,next) =>{
     let id = req.params.id;
     // res.send('Delete the story');
-    if (tradeItemModel.deleteById(id)){
-        res.redirect('/trades/allItems');
-    }else{
-        // let err = new Error('Cannot find a story with id  ' + id);
-        // err.status = 404;
-        // next(err);
-        console.log("Error during deleting the item");
+    if(!id.match(/^[0-9a-fA-F]{24}$/)){
+        let err = new Error('invalid id');
+        err.status = 400;
+        return next(err);
     }
 
+    tradeItemModel.findByIdAndDelete(id, {useFindAndModify: false}) 
+    .then(item=>{
+        if(item){
+            res.redirect('/trades/allItems');
+        }else{
+            let err = new Error('Story not present with id:   '+id);
+            err.status = 404;
+            return next(err);
+        }
+    })
+    .catch(err=>next(err));
+    
 })
 
 exports.edit = (req, res, next) =>{
     // res.send ('Send edit form .');
     let id = req.params.id;
-    let eachItem = tradeItemModel.getItemDetailsByItemId(id);
-    if (eachItem){
-        res.render('./tradeItem/updateForm',{eachItem})
-    }else{
-        let err = new Error('Cannot find a item with id  ' + id);
-        err.status = 404;
-        next(err);
+    
+    if(!id.match(/^[0-9a-fA-F]{24}$/)){
+        let err = new Error('invalid id');
+        err.status = 400;
+        return next(err);
     }
+
+    tradeItemModel.findById(id)
+    .then(eachItem=>{
+        if(eachItem){
+            return res.render('./tradeItem/updateForm',{eachItem});
+        }else{
+            let err = new Error('Cannot find a item with id  ' + id);
+            err.status = 404;
+            next(err);
+        }
+    })
+    .catch(err=>next(err));
+
+
+
+    // let eachItem = tradeItemModel.getItemDetailsByItemId(id);
+    // if (eachItem){
+    //     res.render('./tradeItem/updateForm',{eachItem})
+    // }else{
+    //     let err = new Error('Cannot find a item with id  ' + id);
+    //     err.status = 404;
+    //     next(err);
+    // }
     
 };
 
 exports.update =  (req, res, next) =>{
     // res.send ('update the story with id'); 
-    console.log("I am in the update function");
-    let item = req.body;
-    console.log(item);
-    console.log(req.params.id);
-
-    if(tradeItemModel.updateById(req.params.id,item)){
-        res.redirect('/trades/allItems');
-    }else{
-        let err = new Error('Cannot find a story with id  ' + id);
-        err.status = 404;
-        next(err);
+    let id = req.params.id;
+    let requestBodyItem = req.body;
+    if(!id.match(/^[0-9a-fA-F]{24}$/)){
+        let err = new Error('invalid id');
+        err.status = 400;
+        return next(err);
     }
+    tradeItemModel.findByIdAndUpdate(id, requestBodyItem,{useFindAndModify: false, runValidators: true})
+    .then(item=>{
+        if(item){
+            res.redirect('/trades/showTrade/'+id);
+        }else{
+            let err = new Error('Story not present, id:  '+id);
+            err.status = 404;
+            next(err);
+        }
+    })
+    .catch(err=>{
+        if(err.name === 'ValidationError'){
+            err.status = 400;
+        }
+        next(err);
+    });
 
 };
 
@@ -146,15 +189,33 @@ exports.create = (req,res,next) =>{
 exports.save = (req,res,next) => {
     console.log("in save");
 
-    let body = req.body;
-    console.log(body);
-    if(tradeItemModel.save(body)){
-        res.redirect('/trades/allItems');
-    }else{
-        let err = new Error('Cannot find a story with id  ' + id);
-        err.status = 404;
+    let item = req.body;
+
+
+    let uuid = uuidv4();
+    console.log("in models save ");
+    // item["createdAt"] =  DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
+    item["category_id"] =uuid;
+    item["status"] = "active";
+    item["image"] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7Q8BQHDT8SWf_uR3v_lcoVmY8Yu9DgO33w&usqp=CAU";
+    console.log("item to be pushed",item);
+
+    let newModel = new tradeItemModel(item);
+    newModel.save()
+    .then(item=>res.redirect('/trades/allItems'))
+    .catch(err=>{
+        if(err.name === 'ValidationError'){
+            err.status = 400;
+        }
         next(err);
-    }
+    });
+    // if(tradeItemModel.save(item)){
+    //     res.redirect('/trades/allItems');
+    // }else{
+    //     let err = new Error('Cannot find a story with id  ' + id);
+    //     err.status = 404;
+    //     next(err);
+    // }
     
 };
 

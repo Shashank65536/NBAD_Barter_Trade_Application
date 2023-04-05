@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 
 const tradeSchema = new Schema({
     category_id: {type: String, required:[true]},
-    name: {type: String, required:[true, 'name is required']},
-    category: {type: String, required:[true, 'name is required']},
-    status: {type: String, required:[true, 'name is required']},
-    price: {type: String, required:[true, 'name is required']},
-    image: {type: String, required:[true, 'name is required']},
-    details: {type: String, required:[true, 'content is required'],
+    name: {type: String, required:[true]},
+    category: {type: String, required:[true]},
+    status: {type: String, required:[true]},
+    price: {type: String, required:[true]},
+    image: {type: String, required:[true]},
+    details: {type: String, required:[true],
         minLength: [10]}
     }, 
     {timestamps: true}
@@ -78,25 +78,4 @@ exports.updateById = (id, newItem) => {
     }else{
         return false;
     }
-};
-
-exports.save = (item) => {
-    
-    let uuid = uuidv4();
-    let uuid1 = uuidv4();
-    console.log("in models save ");
-    item["id"] = uuid;
-    item["createdAt"] =  DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
-    item["category_id"] =uuid1;
-    item["status"] = "active";
-    item["image"] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7Q8BQHDT8SWf_uR3v_lcoVmY8Yu9DgO33w&usqp=CAU";
-    console.log("item to be pushed",item);
-    if(tradeItems.push(item)){
-        return true;
-    }else{
-        return false;
-    }
-    
 }
-
-
