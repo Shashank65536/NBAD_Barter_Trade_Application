@@ -3,40 +3,58 @@ const tradeItemModel = require('../models/itemModel.js');
 
 exports.tradeCategories = (req, res) =>{
     // res.send ('Display all the stories.');
-    let categories = tradeItemModel.getAllCategories();
-    console.log("in controller = ",categories);
+    
+    // let categories = tradeItemModel.getAllCategories();
+    categories = [];
+    tradeItemModel.find().then(tradeItems =>{
+        tradeItems.forEach(item =>{
+        tempCategory = {};
+        tempCategory["category"] = item.category;
+        tempCategory["category_id"] = item.category_id;
+        categories.push(tempCategory);
+        
+    });
+    console.log(categories);
+    console.log(categories.length);
     res.render('./tradeItem/trades',{categories});
+}).catch(err=>{
+    let err1 = new Error('Trade items are empty!!!!!!!!!!!!!!');
+    err1.status = 404;
+    next(err1);
+});
 };
+
 
 exports.showAllItems = (req,res,next) =>{
     
-    let items = tradeItemModel.getAllItems();
-    console.log("all items are ", items);
-    console.log(items instanceof Array);
-    if(items.length > 0){
-        res.render('./tradeItem/trade',{items});
-    }else{
-        let err = new Error('Trade items are empty!!!!!!!!!!!!!!');
-        err.status = 404;
-        next(err);
-    }
-    
+    tradeItemModel.find()
+    .then(items=> res.render('./tradeItem/trade',{items}))
+    .catch(err=>{
+        let err1 = new Error('Trade items are empty!!!!!!!!!!!!!!');
+        err1.status = 404;
+        next(err1);
+    });
 };
 
 exports.displayCategoryItems = (req,res,next) =>{
     
     let id = req.params.category_id;
     console.log("In displayCategoryItems id is", id);
-    let items = tradeItemModel.getItemByCategoryId(id);
-    // console.log("all items are ", items);
-    // console.log(items instanceof Array);
-    if(items.length > 0){
-        res.render('./tradeItem/trade',{items});
-    }else{
-        let err = new Error('Trade items are empty!!!!!!!!!!!!!!');
-        err.status = 404;
-        next(err);
-    }
+    tradeItemModel.find()
+    .then(tradeItems=>{
+        let items = [];
+        console.log("In models id is = ",id);
+        reqItem = tradeItems.find(item => item.category_id === id);
+        items.push(reqItem);
+        console.log("In getItemByCategoryId ",items);
+        if(items.length > 0){
+            res.render('./tradeItem/trade',{items});
+        }else{
+            let err = new Error('Trade items are empty!!!!!!!!!!!!!!');
+            err.status = 404;
+            next(err);
+        }
+    });
     
 };
 
@@ -56,14 +74,23 @@ exports.displayCategoryItems = (req,res,next) =>{
 
 exports.getItemDetails = (req,res) => {
     let id = req.params.itemId;
-    //  console.log("id is ",id);
-    let item = tradeItemModel.getItemDetailsByItemId(id);
-    // console.log("the trade item is ", item);
-    if(item){
+    console.log("id is ",id);
+
+    tradeItemModel.find()
+    .then(items => {
+        let item = items.find(item => item.id === id);
         res.render('./tradeItem/executeTrade',{item});
-    }else{
-        console.log("Error item not found");
-    }
+        
+    }).catch(err => {
+        next(err);
+    });
+    // let item = tradeItemModel.getItemDetailsByItemId(id);
+    // // console.log("the trade item is ", item);
+    // if(item){
+    //     res.render('./tradeItem/executeTrade',{item});
+    // }else{
+    //     console.log("Error item not found");
+    // }
 }
 
 exports.deleteItem = ((req,res,next) =>{

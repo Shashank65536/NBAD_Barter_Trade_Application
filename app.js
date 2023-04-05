@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const tradeRoutes = require('./routes/tradeRoutes');
 const mainRoutes = require('./routes/mainRoutes');
 const methodOverride = require('method-override');
+const mongoose = require('mongoose');
 
 const app = express();
 
@@ -17,10 +18,19 @@ app.use(morgan('tiny'));
 app.use(methodOverride('_method'));
 
 //server
-app.listen(port,host,()=>{
-    console.log("Server is running");
-});
+// app.listen(port,host,()=>{
+//     console.log("Server is running");
+// });
 
+mongoose.connect('mongodb://127.0.0.1:27017/lenstrade',
+                {useNewUrlParser:true, useUnifiedTopology:true})
+.then(()=>{
+    //start the server
+    app.listen(port, host, () => {
+        console.log('The server is running at port', port);
+    });
+})
+.catch(err=>console.log(err.message));
 //routes
 // app.get('/', (req, res) => {
 //     res.render('index');
