@@ -1,0 +1,47 @@
+use lenstrade
+
+db.dropDatabase()
+
+use lenstrade
+
+db.trades.insertMany([
+    {
+        category_id:'1',
+        name:'Vincent Chase',
+        category: 'Round',
+        details: 'Aut AuthorAuthorAuthorAuthorAuthorAuthorhor 1',
+        status:'New',
+        price: '20',
+		image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7Q8BQHDT8SWf_uR3v_lcoVmY8Yu9DgO33w&usqp=CAU'
+
+    },
+    {   
+        
+        category_id:'2',
+        name:'Titan Eye wear',
+        category: 'Oval',
+        details: 'Aut AuthorAuthorAuthorAuthorAuthorAuthorhor 1 1',
+        status:'New',
+        price: '20',
+        image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7Q8BQHDT8SWf_uR3v_lcoVmY8Yu9DgO33w&usqp=CAU'
+    },
+    {  
+       
+        category_id:'3',
+        name:'RayBan',
+        category: 'Aviator',
+        details: 'Aut AuthorAuthorAuthorAuthorAuthorAuthorhor 1 1',
+        status:'New',
+        price: '20',
+        image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjPx_dTaxadOIn3QEIltzdm6LE7chEfxcElQ&usqp=CAU'
+    },
+    {  
+        category_id:'4',
+        name:'RayBan',
+        category: 'Cat Eye',
+        details: 'Aut AuthorAuthorAuthorAuthorAuthorAuthorhor 1 1dsssssssssssss',
+        status:'New',
+        price: '20',
+        image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjPx_dTaxadOIn3QEIltzdm6LE7chEfxcElQ&usqp=CAU'
+    }
+])
