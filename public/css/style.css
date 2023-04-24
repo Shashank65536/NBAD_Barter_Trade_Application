@@ -305,3 +305,16 @@ footer {
   button:hover {
     background-color: #3e8e41;
   }
+
+
+  .align-top{
+    vertical-align: top;
+  }
+  
+  .align-right{
+    text-align: right;
+  }
+  
+  .fixed-width{
+    width: 300px;
+  }

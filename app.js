@@ -4,6 +4,7 @@ const tradeRoutes = require('./routes/tradeRoutes');
 const mainRoutes = require('./routes/mainRoutes');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -38,6 +39,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/lenstrade',
 
 app.use('/', mainRoutes);
 app.use('/trades', tradeRoutes);
+app.use('/user', userRoutes);
 
 app.use((req, res, next) =>{
     let err = new Error('The server cannot locate ' + req.url);
