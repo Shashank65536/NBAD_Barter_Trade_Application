@@ -11,7 +11,19 @@ exports.create = (req, res, next) =>{
     console.log("I am in user: ", user);
     user.save()
     .then(()=> res.render('./user/login'))
-    .catch(err=>next(err));
+    .catch(err=>{
+        if(err.name === 'ValidationError' ) {
+            req.flash('error', err.message);  
+            return res.redirect('/users/new');
+        }
+
+        if(err.code === 11000) {
+            req.flash('error', 'Email has been used');  
+            return res.redirect('/users/new');
+        }
+        
+        next(err);
+    });
 }
 
 exports.getUserLogin = (req, res, next) => {
