@@ -5,8 +5,11 @@ const mainRoutes = require('./routes/mainRoutes');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
-
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const flash = require('connect-flash');
 const app = express();
+
 
 let port = 3000;
 let host = 'localhost';
@@ -24,7 +27,7 @@ app.use(methodOverride('_method'));
 // });
 
 mongoose.connect('mongodb://127.0.0.1:27017/lenstrade',
-                {useNewUrlParser:true, useUnifiedTopology:true})
+                {useNewUrlParser:true, useUnifiedTopology:true, useCreateIndex: true})
 .then(()=>{
     //start the server
     app.listen(port, host, () => {
@@ -32,10 +35,24 @@ mongoose.connect('mongodb://127.0.0.1:27017/lenstrade',
     });
 })
 .catch(err=>console.log(err.message));
-//routes
-// app.get('/', (req, res) => {
-//     res.render('index');
-// })
+
+app.use(
+    session({
+        secret: "dgjasdgkldas5875lejgr",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {maxAge: 60*60*1000},
+        store: new MongoStore({mongoUrl: 'mongodb://127.0.0.1:27017/lenstrade'})
+        })
+);
+app.use(flash());
+app.use((req, res, next) => {
+    console.log(req.session);
+    res.locals.user = req.session.user||null;
+    res.locals.errorMessages = req.flash('error');
+    res.locals.successMessages = req.flash('success');
+    next();
+});
 
 app.use('/', mainRoutes);
 app.use('/trades', tradeRoutes);
@@ -62,4 +79,6 @@ app.use((err,req,res, next) => {
     
     res.render('error', {error:err});
 });
+
+
 

@@ -14,12 +14,12 @@ router.get('/new', controller.new);
 router.get('/login', controller.getUserLogin);
 
 // //users/login: authenticate user's login
-// router.post('/login', isExist, controller.login);
+router.post('/login', controller.login);
 
 // //users/profile: send user's profile page
-// router.get('/profile', checkLogIn, controller.profile);
+router.get('/profile', controller.profile);
 
 // //users/logout: logout a user
-// router.get('/logout', checkLogIn, controller.logout);
+router.get('/logout', controller.logout);
 
 module.exports = router;

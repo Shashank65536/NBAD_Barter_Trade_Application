@@ -21,6 +21,10 @@ userSchema.pre('save', function(next){
     })
     .catch(err => next(error));
   });
-  
+
+userSchema.methods.comparePassword = function(inputPassword) {
+    let user = this;
+    return bcrypt.compare(inputPassword, user.password);
+  }
 //collection name is stories in the database
 module.exports = mongoose.model('User', userSchema);

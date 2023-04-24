@@ -48,6 +48,24 @@
                 <li id="general-nav-font"><a href="http://localhost:3000/">Home</a></li>
                 <li><a href="http://localhost:3000/trades/tradeCategories">Trades</a></li>
                 <li><a href="http://localhost:3000/trades/createForm">Add a new trade</a></li>
+                <li><a href="/user/logout">Logout</a></li>
             </ul>
         </div>
     </div>
+
+    <% if(errorMessages.length > 0) {%>
+        <% errorMessages.forEach(message=>{%>
+            <div class='error'>
+                <%=message%>
+            </div>
+            <%});%>
+                <%}%>
+    
+    <% if(successMessages.length > 0) {%>
+    
+        <% successMessages.forEach(message=>{%>
+         <div class='success'>
+                <%=message%>
+        </div>
+        <%});%>
+     <%}%>
