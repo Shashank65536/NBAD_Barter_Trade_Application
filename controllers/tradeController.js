@@ -1,5 +1,6 @@
 const express = require('express');
 const tradeItemModel = require('../models/itemModel.js');
+const userModel = require('../models/user.js');
 const {v4: uuidv4} = require('uuid');
 const {DateTime} = require("luxon");
 
@@ -30,7 +31,10 @@ exports.tradeCategories = (req, res) =>{
 exports.showAllItems = (req,res,next) =>{
     
     tradeItemModel.find()
-    .then(items=> res.render('./tradeItem/trade',{items}))
+    .then(items=>{
+        console.log(items);
+        res.render('./tradeItem/trade',{items})
+    })
     .catch(err=>{
         let err1 = new Error('Trade items are empty!!!!!!!!!!!!!!');
         err1.status = 404;
@@ -43,10 +47,30 @@ exports.displayCategoryItems = (req,res,next) =>{
     let id = req.params.category_id;
     console.log("In displayCategoryItems id is", id);
     tradeItemModel.find()
-    .then(tradeItems=>{
+    .then(async tradeItems=>{
         let items = [];
+        let fullName = '';
         console.log("In models id is = ",id);
         reqItem = tradeItems.find(item => item.category_id === id);
+        
+        const result = await new Promise((resolve,reject)=>{
+            userModel.findById(reqItem.name)
+            .then(eachUser=>{
+                resolve(eachUser);
+            }).catch(err=>reject(err))
+        });
+        console.log("result is ", result);
+        // setTimeout(() => {
+        //     // Do something after waiting for some time
+        //     userModel.findById(reqItem.name)
+        //     .then(eachUser =>{
+        //     console.log("each user is:",eachUser);
+        //     reqItem.name = eachUser;
+        // })
+        //   }, 1000);
+        
+        reqItem.name = result;
+        console.log('In display category items',reqItem);
         items.push(reqItem);
         console.log("In getItemByCategoryId ",items);
         if(items.length > 0){
@@ -79,8 +103,19 @@ exports.getItemDetails = (req,res) => {
     console.log("id is ",id);
 
     tradeItemModel.find()
-    .then(items => {
+    .then(async items => {
         let item = items.find(item => item.id === id);
+        console.log("in getItemDetails item is:",item);
+        const result = await new Promise((resolve,reject)=>{
+            userModel.findById(item.name)
+            .then(eachUser=>{
+                resolve(eachUser);
+            }).catch(err=>reject(err))
+        });
+        console.log("in getItemDetails result is:",result);
+        item.name = result;
+        console.log("in getItemDetails = ",item);
+
         res.render('./tradeItem/executeTrade',{item});
         
     }).catch(err => {
@@ -190,6 +225,7 @@ exports.save = (req,res,next) => {
     console.log("in save");
 
     let item = req.body;
+    item.name = req.session.user;
 
 
     let uuid = uuidv4();

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const tradeSchema = new Schema({
     category_id: {type: String, required:[true]},
-    name: {type: String, required:[true]},
+    name: {type: Schema.Types.ObjectId, ref:'User'},
     category: {type: String, required:[true]},
     status: {type: String, required:[true]},
     price: {type: String, required:[true]},

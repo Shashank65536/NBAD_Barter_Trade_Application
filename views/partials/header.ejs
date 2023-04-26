@@ -33,8 +33,11 @@
         <nav>
             <div class="nav-links">
                 <ul>
-                    <li><a href="/user/login">Login</a></li>
-                    <li><a href="/user/new">Signup</a></li>
+                    <%  if(!user){%>
+                        <li><a href="/user/login">Login</a></li>
+                        <li><a href="/user/new">Signup</a></li>
+                    <%}%>
+
                 </ul>
             </div>
 
@@ -48,7 +51,11 @@
                 <li id="general-nav-font"><a href="http://localhost:3000/">Home</a></li>
                 <li><a href="http://localhost:3000/trades/tradeCategories">Trades</a></li>
                 <li><a href="http://localhost:3000/trades/createForm">Add a new trade</a></li>
-                <li><a href="/user/logout">Logout</a></li>
+                <% if(user){%>
+                    <li><a href="/user/profile">Profile</a></li>
+                    <li><a href="/user/logout">Logout</a></li>
+                <%}%>
+
             </ul>
         </div>
     </div>

@@ -8,7 +8,7 @@
             for (var i = 0; i < items.length; i++) {%>
                 <div class = "card">
                     <img id = "card-image" src = "<%= items[i].image %>" alt = "logo">
-                    <h1><%= items.name%></h1>
+                    <h1><%= items[i].name.firstName %></h1>
                     <p class="price">$<%= items[i].price%></p>
                     <p><%= items[i].details %></p>
                     <p>
@@ -25,7 +25,7 @@
             
             <div class = "card">
                 <img id = "card-image" src = "<%= items[0].image %>" alt = "logo">
-                <h1><%= items[0].name%></h1>
+                <h1><%= items[0].name.firstName + ' '+ items[0].name.lastName%></h1>
                 <p class="price">$<%= items[0].price%></p>
                 <p><%= items[0].details %></p>
                 <p>

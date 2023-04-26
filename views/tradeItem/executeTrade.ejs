@@ -7,7 +7,7 @@
             console.log("In ejs template = ",item);%>
             <div class = "card">
                 <img id = "card-image" src = "<%= item.image %>" alt = "logo">
-                <h1><%= item.name%></h1>
+                <h1><%= item.name.firstName + ' '+ item.name.lastName%></h1>
                 <p class="price">$<%= item.price%></p>
                 <p><%= item.details %></p>
             </div>
