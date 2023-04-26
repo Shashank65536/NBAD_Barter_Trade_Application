@@ -1,0 +1,81 @@
+[{
+  "_id": {
+    "$oid": "64486ae1e734d31dbcf32619"
+  },
+  "name": {
+    "$oid": "644632466ebdd21660091990"
+  },
+  "category": "Oval",
+  "details": "This is oval",
+  "price": "20",
+  "category_id": "988a33fe-e9b0-4a76-a8ee-ca117c418cf8",
+  "status": "active",
+  "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7Q8BQHDT8SWf_uR3v_lcoVmY8Yu9DgO33w&usqp=CAU",
+  "createdAt": {
+    "$date": "2023-04-26T00:05:53.119Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-26T00:05:53.119Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64486b14e734d31dbcf32624"
+  },
+  "name": {
+    "$oid": "644632466ebdd21660091990"
+  },
+  "category": "Round",
+  "details": "This is round",
+  "price": "20",
+  "category_id": "2e12a6a6-bb25-4082-9cb6-ddf1b658a58e",
+  "status": "active",
+  "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7Q8BQHDT8SWf_uR3v_lcoVmY8Yu9DgO33w&usqp=CAU",
+  "createdAt": {
+    "$date": "2023-04-26T00:06:44.725Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-26T00:06:44.725Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64486b39e734d31dbcf3262a"
+  },
+  "name": {
+    "$oid": "644632466ebdd21660091990"
+  },
+  "category": "Rectangle",
+  "details": "This is very attractive",
+  "price": "50",
+  "category_id": "bd8f8354-e7fb-46b8-8cf5-f10266cab357",
+  "status": "active",
+  "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7Q8BQHDT8SWf_uR3v_lcoVmY8Yu9DgO33w&usqp=CAU",
+  "createdAt": {
+    "$date": "2023-04-26T00:07:21.925Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-26T00:07:21.925Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64486b55e734d31dbcf3262e"
+  },
+  "name": {
+    "$oid": "644632466ebdd21660091990"
+  },
+  "category": "Circle",
+  "details": "Like harry potter",
+  "price": "100",
+  "category_id": "76a0e4b6-b8d9-49ae-8673-27d79e6b47c5",
+  "status": "active",
+  "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7Q8BQHDT8SWf_uR3v_lcoVmY8Yu9DgO33w&usqp=CAU",
+  "createdAt": {
+    "$date": "2023-04-26T00:07:49.058Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-26T00:07:49.058Z"
+  },
+  "__v": 0
+}]
