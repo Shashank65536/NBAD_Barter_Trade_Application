@@ -218,11 +218,12 @@ footer {
 
 #card-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     position: absolute;
     top: 250px;
     left:70px;
+    padding-bottom: 100px;
 }
 
 #card-image{
