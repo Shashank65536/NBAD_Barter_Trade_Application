@@ -6,18 +6,25 @@
         <%if(items.length > 1){
             console.log("In ejs template = ",items.length);
             for (var i = 0; i < items.length; i++) {%>
-                <div class = "card">
-                    <img id = "card-image" src = "<%= items[i].image %>" alt = "logo">
-                    <h1><%= items[i].name.firstName %></h1>
-                    <p class="price">$<%= items[i].price%></p>
-                    <p><%= items[i].details %></p>
-                    <p>
-                    <button>
-                        <a href="http://localhost:3000/trades/showTrade/<%= items[i].id%>">
-                            Start Trading
-                        </a>
-                    </button>
-                </p>
+
+                <div class="row">
+                    <div class="column-66">
+                        <h1 class="xlarge-font"><b>
+                                <%= items[i].name.firstName %>
+                            </b></h1>
+                        <h1 class="large-font" style="color:MediumSeaGreen;"><b>$<%= items[i].price%></b></h1>
+                        <p><span style="font-size:36px">Make you feel like a Gentleman.</span>
+                            <%= items[i].details %>
+                        </p>
+                        <button class="trade-button">
+                            <a href="http://localhost:3000/trades/showTrade/<%= items[i].id%>">
+                                Start Trading
+                            </a>
+                        </button>
+                    </div>
+                    <div class="column-33">
+                        <img src="<%= items[i].image %>" width="335" height="471">
+                    </div>
                 </div>
 
              <%} 
