@@ -176,9 +176,10 @@ footer {
 }
 
 .trades-container {
-    color: rgb(0, 0, 0);
-    padding-top: 7%;
-    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin: 20px;
+    padding-bottom: 5vw;
 }
 
 .trade-container{
@@ -224,6 +225,7 @@ footer {
     top: 250px;
     left:70px;
     padding-bottom: 100px;
+    padding-left: 70vh;
 }
 
 #card-image{
@@ -293,15 +295,40 @@ footer {
     cursor: pointer; /* Set cursor to pointer */
     border-radius: 5px; /* Add rounded corners */
   }
+
+
   .exec-container{
     position: absolute;
-    top: 20%;
+    top: 30vh;
     left: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+  
+  @media only screen and (max-width: 768px) {
+    .exec-container {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  
+  @media only screen and (max-width: 576px) {
+    .exec-container {
+      left: 10%;
+      width: 80%;
+    }
+  }
+  
+  @media only screen and (max-width: 400px) {
+    .exec-container {
+      top: 10%;
+    }
+  }
+
+
+
 
   button:hover {
     background-color: #3e8e41;
@@ -335,3 +362,138 @@ footer {
     text-align: center;
     padding: 10px 10px;
   }
+
+  .trade-card {
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    background-color: #fff;
+    border-bottom: none;
+  }
+  
+  .card-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .card-body {
+    background-color: #fff;
+  }
+  
+  .list-group {
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .list-group-item {
+    border: none;
+  }
+  
+  .card-link {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .card-link:hover {
+    text-decoration: underline;
+  }
+
+  /* trades heading */
+.category-heading {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+  
+  /* trades options */
+  .trades-options {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .trade-option {
+    width: 30%;
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .trade-option:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  }
+  
+  .option-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .option-description {
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
+  
+  .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-primary {
+    background-color: #4CAF50;
+    border-color: #007bff;
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #49914b;
+    border-color: #0062cc;
+  }
+  
+  .btn-secondary {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #f4f4f4;
+  }
+
+
+  .category-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .category-item {
+    margin-bottom: 8px;
+  }
+  
+  .category-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+  }
+  
+  .category-link:hover {
+    text-decoration: underline;
+  }
+
+  

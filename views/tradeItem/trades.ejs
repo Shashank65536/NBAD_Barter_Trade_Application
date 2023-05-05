@@ -1,38 +1,48 @@
 <%- include('../partials/header.ejs')%>
 
 
-    <div class="trades-container">
-        <h2><a href="http://localhost:3000/trades/allItems">Display all Frames and Lenses</a></h2><br>
-        <h2>OR</h2><br>
-
-        <ul>
-            <li>
-                <h2>Types of Frames</h2><br>
-                <ul>
-                    <% if (categories) {
-                        console.log("in trades ejs categories are = ",categories);
-                        for(var i = 0; i<categories.length;i++){
-                            console.log("in categories = ",categories[i].category);%>
-                            <li><a href="http://localhost:3000/trades/tradeCategories/<%= categories[i].category_id%>" > <%= categories[i].category%>  </a></li>
-                  
-                        <%}
-                    } %>
-
-                </ul>
-            </li>
-            
-            <br>
-            <li>
-                <h2>Types of Lenses</h2> <br>
-                <ul>
-                    <li><a href="trade.html">Single vision</a></li>
-                    <li><a href="trade.html">Progressive</a></li>
-                    <li><a href="trade.html">Concave</a></li>
-                    <li><a href="trade.html">Cylindrical</a></li>
-                </ul>
-            </li>
+<div class="trades-container">
+    <h2 class="category-heading">Explore Trades</h2>
+  
+    <div class="trades-options">
+      <div class="trade-option">
+        <h3 class="option-heading">Display all Frames and Lenses</h3>
+        <p class="option-description">View all available frames and lenses in one place.</p>
+        <a href="http://localhost:3000/trades/allItems" class="btn btn-primary">Explore</a>
+      </div>
+  
+      <div class="trade-option">
+        <h3 class="option-heading">Browse Frames by Type</h3>
+        <p class="option-description">Find the perfect frame for your style and budget.</p>
+        <ul class="category-list">
+          <% if (categories) {
+            console.log("in trades ejs categories are = ",categories);
+            for(var i = 0; i<categories.length;i++){
+              console.log("in categories = ",categories[i].category);%>
+              <li class="category-item">
+                <a href="http://localhost:3000/trades/tradeCategories/<%= categories[i].category_id%>" class="category-link">
+                  <%= categories[i].category%>
+                </a>
+              </li>
+            <%}
+          } %>
         </ul>
+        
+      </div>
+  
+      <div class="trade-option">
+        <h3 class="option-heading">Browse Lenses by Type</h3>
+        <p class="option-description">Choose the right lenses to suit your vision needs.</p>
+        <ul class="category-list">
+          <li class="category-item"><a href="trade.html" class="category-link">Single vision</a></li>
+          <li class="category-item"><a href="trade.html" class="category-link">Progressive</a></li>
+          <li class="category-item"><a href="trade.html" class="category-link">Concave</a></li>
+          <li class="category-item"><a href="trade.html" class="category-link">Cylindrical</a></li>
+        </ul>
+        
+      </div>
     </div>
+  </div>
 
 
 <%- include('../partials/footer.ejs')%>
