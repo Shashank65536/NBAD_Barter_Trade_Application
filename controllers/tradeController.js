@@ -233,7 +233,7 @@ exports.save = (req,res,next) => {
     // item["createdAt"] =  DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
     item["category_id"] =uuid;
     item["status"] = "active";
-    item["image"] = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ7Q8BQHDT8SWf_uR3v_lcoVmY8Yu9DgO33w&usqp=CAU";
+    item["image"] = "https://res.cloudinary.com/liingo/image/upload/c_fill,g_center,h_339,w_990,q_85/754317179262_2.jpg";
     console.log("item to be pushed",item);
 
     let newModel = new tradeItemModel(item);

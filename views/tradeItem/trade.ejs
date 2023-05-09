@@ -30,19 +30,25 @@
              <%} 
         }else{%>
             
-            <div class = "card">
-                <img id = "card-image" src = "<%= items[0].image %>" alt = "logo">
-                <h1><%= items[0].name.firstName + ' '+ items[0].name.lastName%></h1>
-                <p class="price">$<%= items[0].price%></p>
-                <p><%= items[0].details %></p>
-                <p>
-                    <button>
-                        <a href="http://localhost:3000/trades/showTrade/<%= items[0].id%>">
-                            Start Trading
-                        </a>
-                    </button>
-                </p>
-            </div>
+                <div class="row">
+                    <div class="column-66">
+                        <h1 class="xlarge-font"><b>
+                                <%= items[0].name.firstName %>
+                            </b></h1>
+                        <h1 class="large-font" style="color:MediumSeaGreen;"><b>$<%= items[0].price%></b></h1>
+                        <p><span style="font-size:36px">Make you feel like a Gentleman.</span>
+                            <%= items[0].details %>
+                        </p>
+                        <button class="trade-button">
+                            <a href="http://localhost:3000/trades/showTrade/<%= items[0].id%>">
+                                Start Trading
+                            </a>
+                        </button>
+                    </div>
+                    <div class="column-33">
+                        <img src="<%= items[0].image %>" width="335" height="471">
+                    </div>
+                </div>
         <%}%>
 
     </div>
