@@ -265,23 +265,34 @@ exports.save = (req, res, next) => {
 exports.dev = (req, res, next) => {
 
     let userId = req.params.id;
+    let profileDataJson = {};
     watchListItemModel.find({user:userId})
     .then((items)=>{
-        if(items.length > 0){
-            profileDataJson['watchListItems'] =items;
-            items.forEach(async eachItem=>{
-                let tradeItem = await new Promise((resolve,reject)=>{
-                    tradeItemModel.findById(eachItem.tradeitem)
-                    .then (item=>{
-                        resolve(item);
-                    })
-                    .catch(err=>reject(err));
-                });
-                profileDataJson['tradeItem'] = tradeItem;
+        if (items.length > 0) {
+            profileDataJson["watchListItems"] = items;
+            console.log("aa ",profileDataJson);
+            // Create an array of promises for fetching trade items
+            const promises = items.map((eachItem) => {
+              return new Promise((resolve, reject) => {
+                tradeItemModel
+                  .findById(eachItem.tradeitem)
+                  .then((item) => {
+                    resolve(item);
+                  })
+                  .catch((err) => reject(err));
+              });
             });
-            
-            console.log(profileDataJson);
-        }
+          
+            // Wait for all promises to resolve using Promise.all()
+            Promise.all(promises)
+              .then((tradeItemsArray) => {
+                profileDataJson["tradeItems"] = tradeItemsArray;
+                console.log("final ", profileDataJson);
+              })
+              .catch((error) => {
+                console.log("Error fetching trade items:", error);
+              });
+          }
     })
     .catch(err=>next(err))
 };

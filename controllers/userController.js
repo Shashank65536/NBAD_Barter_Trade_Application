@@ -100,12 +100,35 @@ exports.profile = (req, res, next)=>{
     .catch(err=>next(err))
 
     watchListItemModel.find({user:id})
-    .then(item=>{
-        if(item.length > 0){
-            profileDataJson['watchListItems'] =item;
-            console.log(profileDataJson);
-            res.render('./user/profile',{profileDataJson});
-        }
+    .then(items=>{
+        if (items.length > 0) {
+            profileDataJson["watchListItems"] = items;
+            console.log("aa ",profileDataJson);
+            // Create an array of promises for fetching trade items
+            const promises = items.map((eachItem) => {
+              return new Promise((resolve, reject) => {
+                tradeItemModel
+                  .findById(eachItem.tradeitem)
+                  .then((item) => {
+                    resolve(item);
+                  })
+                  .catch((err) => reject(err));
+              });
+            });
+          
+            // Wait for all promises to resolve using Promise.all()
+            Promise.all(promises)
+              .then((tradeItemsArray) => {
+                console.log("array is",tradeItemsArray);
+                profileDataJson["tradeItems"] = tradeItemsArray;
+                console.log("final ", profileDataJson);
+                res.render('./user/profile',{profileDataJson});
+              })
+              .catch((error) => {
+                console.log("Error fetching trade items:", error);
+              });
+          }
+          
     })
     .catch(err=>next(err))
 };
