@@ -7,8 +7,9 @@
             console.log("In ejs template = ",item);%>
             <div class = "card">
                 <img id = "card-image" src = "<%= item.image %>" alt = "logo">
-                <h1><%= item.name.firstName + ' '+ item.name.lastName%></h1>
-                <p class="price">$<%= item.price%></p>
+                <h3><%= item.productName%></h3>
+                <h5>Trader Name: <%= item.name.firstName + ' '+ item.name.lastName%></h5>
+                <p class="price">Price: $<%= item.price%></p>
                 <p><%= item.details %></p>
             </div>
             <form>
@@ -26,6 +27,24 @@
                         formmethod="POST" 
                         formaction="/trades/<%=item.id%>?_method=DELETE">
                         Delete
+                    </button>
+                </p>
+
+                <p>
+                    <button class = "exec-button-trade" 
+                        type = "submit" 
+                        formmethod="POST" 
+                        formaction="/trades/<%=item.id%>?_method=DELETE">
+                        Trade
+                    </button>
+                </p>
+
+                <p>
+                    <button class = "exec-button-watch" 
+                        type = "submit" 
+                        formmethod="POST" 
+                        formaction="/trades/watchlist/<%=item.id%>">
+                        Watch
                     </button>
                 </p>
             </form>

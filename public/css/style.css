@@ -267,7 +267,7 @@ footer {
   .exec-button-delete{
     position: absolute;
     top: 110%;
-    right: 60%;
+    right: 22vh;
     background-color: #4CAF50; /* Set the background color */
     color: white; /* Set the text color */
     border: none; /* Remove the border */
@@ -283,7 +283,39 @@ footer {
   .exec-button-update{
     position: absolute;
     top: 110%;
-    right: 30px;
+    right: 5vh;
+    background-color: #4CAF50; /* Set the background color */
+    color: white; /* Set the text color */
+    border: none; /* Remove the border */
+    padding: 10px 20px; /* Set the padding */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Set the display to inline-block */
+    font-size: 16px; /* Set the font size */
+    cursor: pointer; /* Set cursor to pointer */
+    border-radius: 5px; /* Add rounded corners */
+  }
+
+    .exec-button-trade{
+    position: absolute;
+    top: 110%;
+    right: 40vh;
+    background-color: #4CAF50; /* Set the background color */
+    color: white; /* Set the text color */
+    border: none; /* Remove the border */
+    padding: 10px 20px; /* Set the padding */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Set the display to inline-block */
+    font-size: 16px; /* Set the font size */
+    cursor: pointer; /* Set cursor to pointer */
+    border-radius: 5px; /* Add rounded corners */
+  }
+
+  .exec-button-watch{
+    position: absolute;
+    top: 110%;
+    left: 40vh;
     background-color: #4CAF50; /* Set the background color */
     color: white; /* Set the text color */
     border: none; /* Remove the border */
@@ -521,7 +553,7 @@ footer {
   }
   
   .xlarge-font {
-    font-size: 64px
+    font-size: 35px
   }
   
   .trade-button {
@@ -564,3 +596,46 @@ footer {
       margin: auto;
     }
   }
+  .line-container {
+    display: flex;
+    justify-content: center;
+    
+  }
+  
+  .line {
+    width: 100%;
+    height: 4px;
+    background-color: green;
+     /* Adjust the value to add desired white space below the line */
+  }
+
+  .profile-font {
+    font-size: 20px
+  }
+
+  .profile-container{
+    position: relative;
+    bottom: 5vh;
+  }
+
+  #card-container1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 300px;
+    left:70px;
+    padding-bottom: 100px;
+    padding-left: 20vh;
+}
+
+#card-container2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    /* top: 300px; */
+    left:70px;
+    padding-bottom: 100px;
+    padding-left: 20vh;
+}

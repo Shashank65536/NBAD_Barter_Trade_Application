@@ -1,6 +1,7 @@
 const model = require('../models/user');
 const Story = require('../models/itemModel');
-
+const tradeItemModel = require('../models/itemModel.js');
+const watchListItemModel = require('../models/watchlist');
 exports.new = (req, res)=>{
     console.log("in user controller");
     res.render('./user/new');
@@ -62,6 +63,7 @@ exports.login = (req, res, next)=>{
 
 exports.profile = (req, res, next)=>{
     let id = req.session.user;
+    let profileDataJson = {};
     // Promise.all([model.findById(id), Story.find({author: id})]) 
     // .then(results=>{
     //     const [user, stories] = results;
@@ -69,8 +71,42 @@ exports.profile = (req, res, next)=>{
     // })
     // .catch(err=>next(err));
 
+    // model.findById(id)
+    // .then(user=>res.render('./user/profile',{user}))
+    // .catch(err=>next(err))\
+
+    tradeItemModel.find({ name: id })
+    .then(tradeItems=>{
+        if(tradeItems){
+            profileDataJson['items'] = tradeItems;
+        }else{
+            console.log("No Items found");
+        }
+        
+    })
+    .catch(err=>next(err));
+
     model.findById(id)
-    .then(user=>res.render('./user/profile',{user}))
+    .then(user=>{
+        if(user){
+            profileDataJson['user'] = user;
+        }else{
+            let err = new Error('User not present, id:  '+id);
+            err.status = 404;
+            next(err);
+        }
+        
+    })
+    .catch(err=>next(err))
+
+    watchListItemModel.find({user:id})
+    .then(item=>{
+        if(item.length > 0){
+            profileDataJson['watchListItems'] =item;
+            console.log(profileDataJson);
+            res.render('./user/profile',{profileDataJson});
+        }
+    })
     .catch(err=>next(err))
 };
 

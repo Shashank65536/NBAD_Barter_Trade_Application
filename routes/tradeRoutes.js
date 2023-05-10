@@ -31,4 +31,10 @@ router.get('/createForm',isLoggedIn,controller.create);
 
 router.post('/',isLoggedIn,controller.save);
 
+router.post('/watchlist/:id',controller.addToWatchList);
+
+router.get('/abc/:id', controller.dev);
+
+
+
 module.exports = router;
