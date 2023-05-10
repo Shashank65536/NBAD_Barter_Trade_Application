@@ -1,5 +1,5 @@
 const express = require('express');
-const { isLoggedIn } = require('../middleware/auth');
+const { isLoggedIn,isHost,isGuest } = require('../middleware/auth');
 const router = express.Router();
 
 const controller = require('../controllers/tradeController');
@@ -21,11 +21,11 @@ router.get('/showTrade/:itemId',isLoggedIn, controller.getItemDetails);
 //     res.send('Send the item with the id');
 // });
 
-router.get('/:id/edit',isLoggedIn, controller.edit);
+router.get('/:id/edit',isLoggedIn,isHost, controller.edit);
 
-router.put('/:id',isLoggedIn, controller.update);
+router.put('/:id',isLoggedIn, isHost,controller.update);
 
-router.delete('/:id',isLoggedIn, controller.deleteItem);
+router.delete('/:id',isLoggedIn,isHost, controller.deleteItem);
 
 router.get('/createForm',isLoggedIn,controller.create);
 
