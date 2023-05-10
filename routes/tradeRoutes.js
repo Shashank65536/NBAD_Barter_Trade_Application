@@ -35,6 +35,6 @@ router.post('/watchlist/:id',controller.addToWatchList);
 
 router.get('/abc/:id', controller.dev);
 
-
+router.post('/unwatch/:id', controller.unwatch);
 
 module.exports = router;

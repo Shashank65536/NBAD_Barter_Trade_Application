@@ -324,3 +324,37 @@ exports.addToWatchList = (req, res, next) => {
       next(err);
     });
 };
+
+
+exports.unwatch = (req, res, next) => {
+    // res.send ('update the story with id');
+    let watchListItemId = req.params.id;
+
+    let requestJson = {};
+    requestJson['watchListStatus'] = false;
+    // if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+    //   let err = new Error("invalid id");
+    //   err.status = 400;
+    //   return next(err);
+    // }
+    watchListItemModel
+      .findByIdAndUpdate(watchListItemId, requestJson, {
+        useFindAndModify: false,
+        runValidators: true,
+      })
+      .then((item) => {
+        if (item) {
+          res.redirect("/user/profile/");
+        } else {
+          let err = new Error("Story not present, id:");
+          err.status = 404;
+          next(err);
+        }
+      })
+      .catch((err) => {
+        if (err.name === "ValidationError") {
+          err.status = 400;
+        }
+        next(err);
+      });
+  };

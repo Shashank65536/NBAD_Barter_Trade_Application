@@ -99,7 +99,7 @@ exports.profile = (req, res, next)=>{
     })
     .catch(err=>next(err))
 
-    watchListItemModel.find({user:id})
+    watchListItemModel.find({user:id,watchListStatus:true})
     .then(items=>{
         if (items.length > 0) {
             profileDataJson["watchListItems"] = items;
@@ -119,14 +119,18 @@ exports.profile = (req, res, next)=>{
             // Wait for all promises to resolve using Promise.all()
             Promise.all(promises)
               .then((tradeItemsArray) => {
-                console.log("array is",tradeItemsArray);
+                // console.log("array is",tradeItemsArray);
                 profileDataJson["tradeItems"] = tradeItemsArray;
-                console.log("final ", profileDataJson);
+                // console.log("final ", profileDataJson);
                 res.render('./user/profile',{profileDataJson});
               })
               .catch((error) => {
                 console.log("Error fetching trade items:", error);
               });
+          }else{
+            console.log("I am here");
+            console.log("before printing",profileDataJson);
+            res.render('./user/profile',{profileDataJson});
           }
           
     })

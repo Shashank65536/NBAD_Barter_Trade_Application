@@ -82,11 +82,13 @@
                                         <p><span style="font-size:36px">Make you feel like a Gentleman.</span>
                                             <%= items[i].details %>
                                         </p>
-                                        <button class="trade-button">
-                                            <a href="http://localhost:3000/trades/showTrade/<%= items[i].id%>">
-                                                Start Trading
-                                            </a>
-                                        </button>
+                                              
+                                        <form>
+                                            <button class="trade-button" type="submit" formmethod="POST"
+                                                formaction="/trades/unwatch/<%= profileDataJson['watchListItems'][i].id%>">
+                                                Unwatch
+                                            </button>
+                                        </form>
                                     </div>
                                     <div class="column-33">
                                         <img src="<%= items[i].image %>" width="250" height="300">
@@ -105,11 +107,16 @@
                                             <p><span style="font-size:36px">Make you feel like a Gentleman.</span>
                                                 <%= items[0].details %>
                                             </p>
-                                            <button class="trade-button">
-                                                <a href="http://localhost:3000/trades/showTrade/<%= items[0].id%>">
-                                                    Start Trading
-                                                </a>
-                                            </button>
+                                            
+                                            <form>
+                                                <button class="trade-button"
+                                                        type ="submit"
+                                                        formmethod="POST"
+                                                        formaction="/trades/unwatch/<%= profileDataJson['watchListItems'][0].id%>">
+                                                        Unwatch
+                                                </button>
+                                            </form>
+        
                                         </div>
                                         <div class="column-33">
                                             <img src="<%= items[0].image %>" width="250" height="300">
