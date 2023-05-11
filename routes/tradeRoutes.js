@@ -39,5 +39,7 @@ router.post('/unwatch/:id', controller.unwatch);
 
 router.get('/myTrades/:id', controller.showMyTrades);
 
+router.get('/placeTrade/:id', controller.placeTrade);
+
 
 module.exports = router;

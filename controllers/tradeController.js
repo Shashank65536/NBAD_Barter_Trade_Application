@@ -443,6 +443,9 @@ exports.placeTrade =  (req, res, next) => {
             });
         }else{
             console.log('display flash');
+            let err = new Error("You cannot place multiple trades with same item!");
+            err.status = 409;
+            next(err);
             req.flash('error', 'You cannot place multiple trades with same item!'); 
         }
     })
