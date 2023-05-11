@@ -2,6 +2,7 @@ const model = require('../models/user');
 const Story = require('../models/itemModel');
 const tradeItemModel = require('../models/itemModel.js');
 const watchListItemModel = require('../models/watchlist');
+const userTradeModel = require("../models/trade");
 exports.new = (req, res)=>{
     console.log("in user controller");
     res.render('./user/new');
@@ -61,7 +62,7 @@ exports.login = (req, res, next)=>{
     .catch(err => next(err));
 };
 
-exports.profile = (req, res, next)=>{
+exports.profile = async (req, res, next)=>{
     let id = req.session.user;
     let profileDataJson = {};
     // Promise.all([model.findById(id), Story.find({author: id})]) 
@@ -90,6 +91,7 @@ exports.profile = (req, res, next)=>{
     .then(user=>{
         if(user){
             profileDataJson['user'] = user;
+            // console.log("Profiledatajson user is = ", profileDataJson);
         }else{
             let err = new Error('User not present, id:  '+id);
             err.status = 404;
@@ -99,41 +101,45 @@ exports.profile = (req, res, next)=>{
     })
     .catch(err=>next(err))
 
-    watchListItemModel.find({user:id,watchListStatus:true})
-    .then(items=>{
-        if (items.length > 0) {
-            profileDataJson["watchListItems"] = items;
-            // console.log("aa ",profileDataJson);
-            // Create an array of promises for fetching trade items
-            const promises = items.map((eachItem) => {
-              return new Promise((resolve, reject) => {
-                tradeItemModel
-                  .findById(eachItem.tradeitem)
-                  .then((item) => {
-                    resolve(item);
-                  })
-                  .catch((err) => reject(err));
-              });
-            });
-          
-            // Wait for all promises to resolve using Promise.all()
-            Promise.all(promises)
-              .then((tradeItemsArray) => {
-                // console.log("array is",tradeItemsArray);
-                profileDataJson["tradeItems"] = tradeItemsArray;
-                // console.log("final ", profileDataJson);
-                res.render('./user/profile',{profileDataJson});
-              })
-              .catch((error) => {
-                console.log("Error fetching trade items:", error);
-              });
-          }else{
-            console.log("before printing",profileDataJson);
-            res.render('./user/profile',{profileDataJson});
-          }
-          
-    })
-    .catch(err=>next(err))
+    try {
+        const watchListItems = await watchListItemModel.find({ user: id, watchListStatus: true });
+        if (watchListItems.length > 0) {
+          profileDataJson["watchListItems"] = watchListItems;
+          const tradeItemsArray = await Promise.all(
+            watchListItems.map(async (eachItem) => {
+              try {
+                const item = await tradeItemModel.findById(eachItem.tradeitem);
+                return item;
+              } catch (error) {
+                throw error;
+              }
+            })
+          );
+          profileDataJson["tradeItems"] = tradeItemsArray;
+        }
+        
+        const userTradeItems = await userTradeModel.find({ user: req.session.user, tradeStatus:"Pending"});
+        if (userTradeItems.length > 0) {
+            profileDataJson["userTradeInfo"] = userTradeItems;
+            const placedTradeItems = await Promise.all(
+            userTradeItems.map(async (eachItem) => {
+              try {
+                const item = await tradeItemModel.findById(eachItem.tradeItem);
+                return item;
+              } catch (error) {
+                throw error;
+              }
+            })
+          );
+          profileDataJson["placedTradeItems"] = placedTradeItems;
+        }
+        console.log("before rendering  = ", profileDataJson);
+        res.render('./user/profile', { profileDataJson });
+      } catch (error) {
+        next(error);
+      }
+    
+
 };
 
 exports.logout = (req, res, next)=>{

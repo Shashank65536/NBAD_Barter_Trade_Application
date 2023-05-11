@@ -429,24 +429,17 @@ exports.placeTrade =  (req, res, next) => {
     let newModel = new userTradeModel(requestJson);
     
     userTradeModel.find({user:req.session.user,tradeItem:t})
-    .then( existingItems=>{
+    .then( async existingItems=>{
         console.log("existing items are = ",existingItems);
-        if(existingItems == null || existingItems.length === 0){
-            newModel
-            .save()
-            .then((item) => res.redirect("/user/profile/"))
-            .catch((err) => {
-              if (err.name === "Item not Found Error") {
-                err.status = 400;
-              }
-              next(err);
-            });
-        }else{
+        if (existingItems == null || existingItems.length === 0) {
+            await newModel.save();
+            res.redirect("/user/profile/");
+          } else {
             console.log('display flash');
-            let err = new Error("You cannot place multiple trades with same item!");
+            let err = new Error("You cannot place multiple trades with the same item!");
             err.status = 409;
             next(err);
-            req.flash('error', 'You cannot place multiple trades with same item!'); 
-        }
+            req.flash('error', 'You cannot place multiple trades with the same item!');
+          }
     })
 };
