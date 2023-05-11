@@ -37,4 +37,7 @@ router.get('/abc/:id', controller.dev);
 
 router.post('/unwatch/:id', controller.unwatch);
 
+router.get('/myTrades/:id', controller.showMyTrades);
+
+
 module.exports = router;

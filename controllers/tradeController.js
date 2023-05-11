@@ -358,3 +358,17 @@ exports.unwatch = (req, res, next) => {
         next(err);
       });
   };
+
+
+exports.showMyTrades = (req, res, next) =>{
+    let userId = req.session.user;
+
+    tradeItemModel.find({name:userId})
+    .then((items)=>{
+        console.log("user items = ",items);
+        if(items){
+            res.render("./tradeItem/myTrades", { items });
+        }
+    })
+    .catch(err=>next(err));
+}
