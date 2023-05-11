@@ -1,0 +1,58 @@
+<%- include('../partials/header.ejs')%>
+
+    <div style=" top: 3vh;position: relative;"class="profile-container">
+        <h2 style="text-align: center;">Your Trade Items</h1>
+            <div class="line-container">
+                <div class="line"></div>
+            </div>
+    </div>
+    <div id="card-container1">
+        <%console.log("In ejs myTrades template=");%>
+        <%if(items.length > 1){
+        console.log(" In ejs template=",items.length);
+        for (var i = 0; i < items.length; i++) {%>
+        
+            <div class=" row">
+                <div class="column-66">
+                    <h3 class="profile-font"><b>
+                            <%= items[i].productName %>
+                        </b></h3>
+                    <h1 class="large-font" style="color:MediumSeaGreen;"><b>$<%= items[i].price%></b></h1>
+                    <p><span style="font-size:36px">Make you feel like a Gentleman.</span>
+                        <%= items[i].details %>
+                    </p>
+                    <button class="trade-button">
+                        <a href="http://localhost:3000/trades/showTrade/<%= items[i].id%>">
+                            Trade
+                        </a>
+                    </button>
+                </div>
+                <div class="column-33">
+                    <img src="<%= items[i].image %>" width="250" height="300">
+                </div>
+            </div>
+        
+            <%} }else{%>
+            
+                <div class="row">
+                    <div class="column-66">
+                        <h3 class="xlarge-font"><b>
+                                <%= items[0].productName %>
+                            </b></h3>
+                        <h1 class="large-font" style="color:MediumSeaGreen;"><b>$<%= items[0].price%></b></h1>
+                        <p><span style="font-size:36px">Make you feel like a Gentleman.</span>
+                            <%= items[0].details %>
+                        </p>
+                        <button class="trade-button">
+                            <a href="http://localhost:3000/trades/showTrade/<%= items[0].id%>">
+                               Trade
+                            </a>
+                        </button>
+                    </div>
+                    <div class="column-33">
+                        <img src="<%= items[0].image %>" width="250" height="300">
+                    </div>
+                </div>
+                <%}%>
+    </div>
+<%- include('../partials/footer.ejs')%>
