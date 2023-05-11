@@ -4,7 +4,7 @@ const userModel = require("../models/user.js");
 const { v4: uuidv4 } = require("uuid");
 const { DateTime } = require("luxon");
 const watchListItemModel = require("../models/watchlist");
-
+const userTradeModel = require("../models/trade");
 exports.tradeCategories = (req, res) => {
   // res.send ('Display all the stories.');
 
@@ -262,39 +262,74 @@ exports.save = (req, res, next) => {
   // }
 };
 
-exports.dev = (req, res, next) => {
+exports.dev =  (req, res, next) => {
 
-    let userId = req.params.id;
-    let profileDataJson = {};
-    watchListItemModel.find({user:userId})
-    .then((items)=>{
-        if (items.length > 0) {
-            profileDataJson["watchListItems"] = items;
-            console.log("aa ",profileDataJson);
-            // Create an array of promises for fetching trade items
-            const promises = items.map((eachItem) => {
-              return new Promise((resolve, reject) => {
-                tradeItemModel
-                  .findById(eachItem.tradeitem)
-                  .then((item) => {
-                    resolve(item);
-                  })
-                  .catch((err) => reject(err));
-              });
+    console.log("session keys are - ", req.session.user," ", req.session.tradeItemId );
+
+    let t = req.session.tradeItemId;
+    let userItemId = req.params.id;
+    let status = "Pending";
+    let user = req.session.user;
+
+    let requestJson = {};
+
+    requestJson['user'] = user;
+    requestJson['userItem'] = userItemId;
+    requestJson['tradeItem'] = t;
+    requestJson['tradeStatus'] = status;
+    let newModel = new userTradeModel(requestJson);
+    
+    userTradeModel.find({user:req.session.user,tradeItem:t})
+    .then( existingItems=>{
+        console.log("existing items are = ",existingItems);
+        if(existingItems == null || existingItems.length === 0){
+            newModel
+            .save()
+            .then((item) => res.redirect("/user/profile/"))
+            .catch((err) => {
+              if (err.name === "Item not Found Error") {
+                err.status = 400;
+              }
+              next(err);
             });
-          
-            // Wait for all promises to resolve using Promise.all()
-            Promise.all(promises)
-              .then((tradeItemsArray) => {
-                profileDataJson["tradeItems"] = tradeItemsArray;
-                console.log("final ", profileDataJson);
-              })
-              .catch((error) => {
-                console.log("Error fetching trade items:", error);
-              });
-          }
+        }else{
+            console.log('display flash');
+            req.flash('error', 'You cannot place multiple trades with same item!'); 
+        }
     })
-    .catch(err=>next(err))
+
+
+    // let userId = req.params.id;
+    // let profileDataJson = {};
+    // watchListItemModel.find({user:userId})
+    // .then((items)=>{
+    //     if (items.length > 0) {
+    //         profileDataJson["watchListItems"] = items;
+    //         console.log("aa ",profileDataJson);
+    //         // Create an array of promises for fetching trade items
+    //         const promises = items.map((eachItem) => {
+    //           return new Promise((resolve, reject) => {
+    //             tradeItemModel
+    //               .findById(eachItem.tradeitem)
+    //               .then((item) => {
+    //                 resolve(item);
+    //               })
+    //               .catch((err) => reject(err));
+    //           });
+    //         });
+          
+    //         // Wait for all promises to resolve using Promise.all()
+    //         Promise.all(promises)
+    //           .then((tradeItemsArray) => {
+    //             profileDataJson["tradeItems"] = tradeItemsArray;
+    //             console.log("final ", profileDataJson);
+    //           })
+    //           .catch((error) => {
+    //             console.log("Error fetching trade items:", error);
+    //           });
+    //       }
+    // })
+    // .catch(err=>next(err))
 };
 
 exports.addToWatchList = (req, res, next) => {
@@ -362,7 +397,10 @@ exports.unwatch = (req, res, next) => {
 
 exports.showMyTrades = (req, res, next) =>{
     let userId = req.session.user;
+    let tradeItemId = req.params.id;
 
+    req.session.tradeItemId = tradeItemId;
+    console.log("checking the session storage, ",req.session.tradeItemId);
     tradeItemModel.find({name:userId})
     .then((items)=>{
         console.log("user items = ",items);
@@ -372,3 +410,40 @@ exports.showMyTrades = (req, res, next) =>{
     })
     .catch(err=>next(err));
 }
+
+exports.placeTrade =  (req, res, next) => {
+
+    console.log("session keys are - ", req.session.user," ", req.session.tradeItemId );
+
+    let t = req.session.tradeItemId;
+    let userItemId = req.params.id;
+    let status = "Pending";
+    let user = req.session.user;
+
+    let requestJson = {};
+
+    requestJson['user'] = user;
+    requestJson['userItem'] = userItemId;
+    requestJson['tradeItem'] = t;
+    requestJson['tradeStatus'] = status;
+    let newModel = new userTradeModel(requestJson);
+    
+    userTradeModel.find({user:req.session.user,tradeItem:t})
+    .then( existingItems=>{
+        console.log("existing items are = ",existingItems);
+        if(existingItems == null || existingItems.length === 0){
+            newModel
+            .save()
+            .then((item) => res.redirect("/user/profile/"))
+            .catch((err) => {
+              if (err.name === "Item not Found Error") {
+                err.status = 400;
+              }
+              next(err);
+            });
+        }else{
+            console.log('display flash');
+            req.flash('error', 'You cannot place multiple trades with same item!'); 
+        }
+    })
+};
