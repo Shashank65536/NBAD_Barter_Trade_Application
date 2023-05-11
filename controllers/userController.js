@@ -103,7 +103,7 @@ exports.profile = (req, res, next)=>{
     .then(items=>{
         if (items.length > 0) {
             profileDataJson["watchListItems"] = items;
-            console.log("aa ",profileDataJson);
+            // console.log("aa ",profileDataJson);
             // Create an array of promises for fetching trade items
             const promises = items.map((eachItem) => {
               return new Promise((resolve, reject) => {
@@ -128,7 +128,6 @@ exports.profile = (req, res, next)=>{
                 console.log("Error fetching trade items:", error);
               });
           }else{
-            console.log("I am here");
             console.log("before printing",profileDataJson);
             res.render('./user/profile',{profileDataJson});
           }
