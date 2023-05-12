@@ -381,7 +381,7 @@ exports.unwatch = (req, res, next) => {
         if (item) {
           res.redirect("/user/profile/");
         } else {
-          let err = new Error("Story not present, id:");
+          let err = new Error("Watchlist Item not present, check watchListitems collection co, id:");
           err.status = 404;
           next(err);
         }
@@ -443,3 +443,40 @@ exports.placeTrade =  (req, res, next) => {
           }
     })
 };
+
+
+exports.cancelTrade = (req,res,next) =>{
+    let tradeItemId = req.params.id;
+    let user = req.session.user;
+
+    // console.log("user is is ",user);
+    // console.log("tradeItem is ",tradeItemId);
+    let requestJson = {};
+    requestJson['tradeStatus'] = "Cancel";
+
+    // userTradeModel.find({user:user,tradeItem:tradeItemId})
+    // .then(i=>{console.log("found item is - ", i)})
+    // .catch(err=>next(err));
+
+    console.log("updated status is = ",requestJson);
+    userTradeModel
+      .findOneAndUpdate({user:user,tradeItem:tradeItemId}, requestJson, {
+        useFindAndModify: false,
+        runValidators: true,
+      })
+      .then((item) => {
+        if (item) {
+          res.redirect("/user/profile/");
+        } else {
+          let err = new Error("trade Item not present with , id:",tradeItemId);
+          err.status = 404;
+          next(err);
+        }
+      })
+      .catch((err) => {
+        if (err.name === "Trade Item Deletion error") {
+          err.status = 400;
+        }
+        next(err);
+      });
+}

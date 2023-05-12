@@ -41,6 +41,6 @@ router.get('/myTrades/:id',isTradeItemOwner, controller.showMyTrades);
 
 router.get('/placeTrade/:id', isTradeItemOwner,controller.placeTrade);
 
-// router.post('/unwatch/:id', controller.unwatch);
+router.post('/cancelTrade/:id', controller.cancelTrade);
 
 module.exports = router;
