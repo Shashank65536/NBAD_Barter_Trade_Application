@@ -133,6 +133,8 @@ exports.profile = async (req, res, next)=>{
           );
           profileDataJson["placedTradeItems"] = placedTradeItems;
         }
+
+        
         console.log("before rendering  = ", profileDataJson);
         res.render('./user/profile', { profileDataJson });
       } catch (error) {

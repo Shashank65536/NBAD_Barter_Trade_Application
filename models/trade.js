@@ -5,7 +5,8 @@ const userTradeSchema = new Schema({
     user:{type: Schema.Types.ObjectId, ref: 'User'},
     userItem:{type: Schema.Types.ObjectId, ref: 'Trade'},
     tradeItem:{type: Schema.Types.ObjectId, ref: 'Trade'},
-    tradeStatus: {type: String}
+    tradeStatus: {type: String},
+    recipient:{type: Schema.Types.ObjectId, ref: 'User'},
 },
 {timestamps: true}
 )

@@ -411,7 +411,7 @@ exports.showMyTrades = (req, res, next) =>{
     .catch(err=>next(err));
 }
 
-exports.placeTrade =  (req, res, next) => {
+exports.placeTrade =  async (req, res, next) => {
 
     console.log("session keys are - ", req.session.user," ", req.session.tradeItemId );
 
@@ -426,6 +426,16 @@ exports.placeTrade =  (req, res, next) => {
     requestJson['userItem'] = userItemId;
     requestJson['tradeItem'] = t;
     requestJson['tradeStatus'] = status;
+
+
+    await tradeItemModel.findById(t)
+    .then(item=>{
+      console.log("in placetrade = ",item);
+      if(item){
+        requestJson['recipient'] = item.name;
+      }
+    });
+
     let newModel = new userTradeModel(requestJson);
     
     userTradeModel.find({user:req.session.user,tradeItem:t,tradeStatus:"Pending"})
