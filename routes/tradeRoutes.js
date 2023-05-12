@@ -3,7 +3,7 @@ const { isLoggedIn,isHost,isGuest ,isTradeItemOwner} = require('../middleware/au
 const router = express.Router();
 
 const controller = require('../controllers/tradeController');
-
+const{validateId, validateStory,validateResult} = require('../middleware/validator');
 
 router.get('/new', (req,res) =>{
     res.send('Send a new form');
@@ -21,26 +21,26 @@ router.get('/showTrade/:itemId',isLoggedIn, controller.getItemDetails);
 //     res.send('Send the item with the id');
 // });
 
-router.get('/:id/edit',isLoggedIn,isHost, controller.edit);
+router.get('/:id/edit',validateId,isLoggedIn,isHost, controller.edit);
 
-router.put('/:id',isLoggedIn, isHost,controller.update);
+router.put('/:id',validateId,isLoggedIn, isHost,controller.update);
 
-router.delete('/:id',isLoggedIn,isHost, controller.deleteItem);
+router.delete('/:id',validateId,isLoggedIn,isHost, controller.deleteItem);
 
 router.get('/createForm',isLoggedIn,controller.create);
 
-router.post('/',isLoggedIn,controller.save);
+router.post('/',isLoggedIn,validateStory, validateResult,controller.save);
 
-router.post('/watchlist/:id',controller.addToWatchList);
+router.post('/watchlist/:id',validateId,controller.addToWatchList);
 
-router.get('/abc/:id', controller.dev);
+router.get('/abc/:id', validateId,controller.dev);
 
-router.post('/unwatch/:id', controller.unwatch);
+router.post('/unwatch/:id',validateId, controller.unwatch);
 
-router.get('/myTrades/:id',isTradeItemOwner, controller.showMyTrades);
+router.get('/myTrades/:id',validateId,isTradeItemOwner, controller.showMyTrades);
 
-router.get('/placeTrade/:id',controller.placeTrade);
+router.get('/placeTrade/:id',validateId,controller.placeTrade);
 
-router.post('/cancelTrade/:id', controller.cancelTrade);
+router.post('/cancelTrade/:id',validateId, controller.cancelTrade);
 
 module.exports = router;

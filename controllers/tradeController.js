@@ -193,6 +193,7 @@ exports.update = (req, res, next) => {
   // res.send ('update the story with id');
   let id = req.params.id;
   let requestBodyItem = req.body;
+  console.log(requestBodyItem);
   if (!id.match(/^[0-9a-fA-F]{24}$/)) {
     let err = new Error("invalid id");
     err.status = 400;

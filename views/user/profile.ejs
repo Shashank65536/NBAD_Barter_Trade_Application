@@ -30,7 +30,16 @@
                         Start Trading
                     </a>
                 </button>
-                
+                <%if(profileDataJson['recipientTradeItems']){
+                    let arr = profileDataJson['recipientTradeItems'];
+                    if(arr.includes(items[i].id)){%>
+                    <button class="trade-button">
+                    <a href="http://localhost:3000/trades/showTrade/<%= items[i].id%>">
+                        Manage Trade
+                    </a>
+                    </button>
+                    <%}
+                }%>
             </div>
             <div style = "position: relative; top: 7vh;" class="column-32">
                 <img src="<%= items[i].image %>" width="280" height="180">
