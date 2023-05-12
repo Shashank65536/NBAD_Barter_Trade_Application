@@ -39,7 +39,7 @@ router.post('/unwatch/:id', controller.unwatch);
 
 router.get('/myTrades/:id',isTradeItemOwner, controller.showMyTrades);
 
-router.get('/placeTrade/:id', isTradeItemOwner,controller.placeTrade);
+router.get('/placeTrade/:id',controller.placeTrade);
 
 router.post('/cancelTrade/:id', controller.cancelTrade);
 

@@ -428,7 +428,7 @@ exports.placeTrade =  (req, res, next) => {
     requestJson['tradeStatus'] = status;
     let newModel = new userTradeModel(requestJson);
     
-    userTradeModel.find({user:req.session.user,tradeItem:t})
+    userTradeModel.find({user:req.session.user,tradeItem:t,tradeStatus:"Pending"})
     .then( async existingItems=>{
         console.log("existing items are = ",existingItems);
         if (existingItems == null || existingItems.length === 0) {
@@ -460,7 +460,7 @@ exports.cancelTrade = (req,res,next) =>{
 
     console.log("updated status is = ",requestJson);
     userTradeModel
-      .findOneAndUpdate({user:user,tradeItem:tradeItemId}, requestJson, {
+      .findOneAndUpdate({user:user,tradeItem:tradeItemId,tradeStatus:"Pending"}, requestJson, {
         useFindAndModify: false,
         runValidators: true,
       })
