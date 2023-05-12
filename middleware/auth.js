@@ -37,3 +37,22 @@ exports.isHost = (req, res, next)=>{
     })
     .catch(err=>next(err));
 };
+
+//check if user is host of the connection
+exports.isTradeItemOwner = (req, res, next)=>{
+    let id = req.params.id;
+    tradeItemModel.findById(id)
+    .then(item => {
+        if(item){
+            if(item.name == req.session.user){
+                let err = new Error('User cannot trade their own item');
+                err.status = 401;
+                return next(err);
+                
+            } else {
+                return next();
+            }
+        }
+    })
+    .catch(err=>next(err));
+};

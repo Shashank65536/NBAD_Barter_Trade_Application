@@ -1,5 +1,5 @@
 const express = require('express');
-const { isLoggedIn,isHost,isGuest } = require('../middleware/auth');
+const { isLoggedIn,isHost,isGuest ,isTradeItemOwner} = require('../middleware/auth');
 const router = express.Router();
 
 const controller = require('../controllers/tradeController');
@@ -37,9 +37,10 @@ router.get('/abc/:id', controller.dev);
 
 router.post('/unwatch/:id', controller.unwatch);
 
-router.get('/myTrades/:id', controller.showMyTrades);
+router.get('/myTrades/:id',isTradeItemOwner, controller.showMyTrades);
 
-router.get('/placeTrade/:id', controller.placeTrade);
+router.get('/placeTrade/:id', isTradeItemOwner,controller.placeTrade);
 
+// router.post('/unwatch/:id', controller.unwatch);
 
 module.exports = router;
