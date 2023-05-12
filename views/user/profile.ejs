@@ -11,10 +11,10 @@
     </div>
     <div id="card-container1">
         <%console.log("In ejs template=");
-                            let items = profileDataJson.items;%>
-                            <%if(items.length > 1){
-                                console.log(" In ejs template=",items.length);
-                                for (var i = 0; i < items.length; i++) {%>
+        let items = profileDataJson.items;%>
+            <%if(items.length > 1){
+            console.log(" In ejs template=",items.length);
+            for (var i = 0; i < items.length; i++) {%>
                     
             <div class=" row">
             <div class="column-66">
@@ -30,6 +30,7 @@
                         Start Trading
                     </a>
                 </button>
+                
             </div>
             <div style = "position: relative; top: 7vh;" class="column-32">
                 <img src="<%= items[i].image %>" width="280" height="180">

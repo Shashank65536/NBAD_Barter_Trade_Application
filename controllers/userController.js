@@ -134,6 +134,27 @@ exports.profile = async (req, res, next)=>{
           profileDataJson["placedTradeItems"] = placedTradeItems;
         }
 
+        const activeRecipientTrades = await userTradeModel.find({recipient:req.session.user,tradeStatus:"Pending"});
+        if(activeRecipientTrades.length > 0){
+            const recipientTradeItems = await Promise.all(
+                activeRecipientTrades.map(async(eachItem)=>{
+                    try{
+                        const item = await tradeItemModel.findById(eachItem.tradeItem);
+                        return item;
+                    }catch(error){
+                        throw error;
+                    }
+                })
+            );
+
+            let recipientTradeIds = [];
+            recipientTradeItems.forEach(item=>{
+                recipientTradeIds.push(item.id);
+            })
+
+            profileDataJson['recipientTradeItems']  = recipientTradeIds;
+        }
+
         
         console.log("before rendering  = ", profileDataJson);
         res.render('./user/profile', { profileDataJson });
